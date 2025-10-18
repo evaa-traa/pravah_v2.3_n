@@ -1,25 +1,26 @@
+/** @jsxImportSource solid-js */
 import { parseChatbot, injectChatbotInWindow } from './window';
 import { ThemeProvider } from './context/ThemeContext';
 import { ChatLayout } from './components/layout/ChatLayout';
 import { customElement } from 'solid-element';
 import { defaultBotProps } from './constants';
-import { Bubble } from './features/bubble';
-import { Full } from './features/full';
+import { Bubble, BubbleProps } from './features/bubble';
+import { Full, FullProps } from './features/full';
 import { JSX } from 'solid-js';
 
 // Define a wrapper for the Full component to include ThemeProvider and ChatLayout
-const FullWithLayout = (props: any, { element }: { element: HTMLElement }): JSX.Element => {
+const FullWithLayout = (props: FullProps, options: { element: HTMLElement }): JSX.Element => {
   return (
     <ThemeProvider>
       <ChatLayout>
-        <Full {...props} element={element} />
+        <Full {...props} element={options.element} />
       </ChatLayout>
     </ThemeProvider>
   );
 };
 
 // Define a wrapper for the Bubble component to include ThemeProvider and ChatLayout
-const BubbleWithLayout = (props: any): JSX.Element => {
+const BubbleWithLayout = (props: BubbleProps, options: { element: HTMLElement }): JSX.Element => {
   return (
     <ThemeProvider>
       <ChatLayout>
@@ -31,7 +32,6 @@ const BubbleWithLayout = (props: any): JSX.Element => {
 
 // Re-register web components with the new wrappers
 if (typeof window !== 'undefined') {
-  // @ts-expect-error element incorect type
   customElement('flowise-fullchatbot', defaultBotProps, FullWithLayout);
   customElement('flowise-chatbot', defaultBotProps, BubbleWithLayout);
 }

@@ -37,7 +37,7 @@ export const DisclaimerPopup = (props: DisclaimerPopupProps) => {
   ]);
 
   const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme();
+  const isDarkMode = resolvedTheme;
 
   const handleAccept = () => {
     popupProps.onAccept?.();

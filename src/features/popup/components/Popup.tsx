@@ -39,7 +39,7 @@ function syntaxHighlight(json: any, isDarkMode: boolean) {
 export const Popup = (props: PopupProps) => {
   let preEl: HTMLPreElement | undefined;
   const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme();
+  const isDarkMode = resolvedTheme;
 
   const [popupProps] = splitProps(props, ['onOpen', 'onClose', 'isOpen', 'value']);
 

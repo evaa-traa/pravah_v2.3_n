@@ -24,7 +24,7 @@ const defaultFontSize = 16;
 
 export const GuestBubble = (props: Props) => {
   const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme();
+  const isDarkMode = resolvedTheme;
 
   Marked.setOptions({ isNoP: true, sanitize: props.renderHTML !== undefined ? !props.renderHTML : true });
 

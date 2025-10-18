@@ -2,7 +2,7 @@ import { ShortTextInput } from './ShortTextInput';
 import { isMobile } from '../../../../utils/isMobileSignal';
 import { Show, createSignal, createEffect, onMount, Setter } from 'solid-js';
 import { SendButton } from '../../../buttons/SendButton';
-import { FileEvent, UploadsConfig } from '../../Bot';
+import { FileEvent, UploadsConfig } from '@/components/Bot';
 import { ImageUploadButton } from '../../../buttons/ImageUploadButton';
 import { RecordAudioButton } from '../../../buttons/RecordAudioButton';
 import { AttachmentUploadButton } from '../../../buttons/AttachmentUploadButton';
@@ -49,7 +49,7 @@ export const TextInput = (props: TextInputProps) => {
   let audioRef: HTMLAudioElement | undefined;
 
   const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme();
+  const isDarkMode = resolvedTheme;
 
   const handleInput = (inputValue: string) => {
     const wordCount = inputValue.length;

@@ -10,7 +10,7 @@ const defaultIconColor = 'white';
 
 export type FullProps = BotProps & BubbleParams;
 
-export const Full = (props: FullProps, { element }: { element: HTMLElement }) => {
+export const Full = (props: FullProps & { element?: HTMLElement }) => {
   const [isBotDisplayed, setIsBotDisplayed] = createSignal(false);
 
   const launchBot = () => {
@@ -30,7 +30,10 @@ export const Full = (props: FullProps, { element }: { element: HTMLElement }) =>
   });
 
   onMount(() => {
-    botLauncherObserver.observe(element);
+    // Observe the element passed as a prop, or the component's host element if available
+    if (props.element) {
+      botLauncherObserver.observe(props.element);
+    }
   });
 
   onCleanup(() => {

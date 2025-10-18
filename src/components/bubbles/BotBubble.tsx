@@ -54,7 +54,7 @@ const defaultFeedbackColor = '#3B81F6';
 export const BotBubble = (props: Props) => {
   let botDetailsEl: HTMLDetailsElement | undefined;
   const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme();
+  const isDarkMode = resolvedTheme;
 
   Marked.setOptions({ isNoP: true, sanitize: props.renderHTML !== undefined ? !props.renderHTML : true });
 

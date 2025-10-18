@@ -30,7 +30,7 @@ import { Popup, DisclaimerPopup } from '../features/popup';
 import { Avatar } from './avatars/Avatar';
 import { DeleteButton, SendButton } from './buttons/SendButton';
 import { FilePreview } from './inputs/textInput/components/FilePreview';
-import { CircleDotIcon, SparklesIcon, TrashIcon, RegenerateIcon, StopIcon } from './icons';
+import { CircleDotIcon, SparklesIcon, TrashIcon, RegenerateIcon, StopIcon } from '@/components/icons';
 import { CancelButton } from './buttons/CancelButton';
 import { cancelAudioRecording, startAudioRecording, stopAudioRecording } from '../utils/audioRecording';
 import { LeadCaptureBubble } from './bubbles/LeadCaptureBubble';
@@ -106,7 +106,7 @@ export type AgentFlowExecutedData = {
   nodeId: string;
   data: any;
   previousNodeIds: string[];
-  status?: ExecutionState;
+  status: ExecutionState;
 };
 
 export type MessageType = {
@@ -201,7 +201,7 @@ const FeedbackDialog = (props: {
   setFeedbackValue: (value: string) => void;
 }) => {
   const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme();
+  const isDarkMode = resolvedTheme;
 
   return (
     <Show when={props.isOpen}>
@@ -209,8 +209,8 @@ const FeedbackDialog = (props: {
         <div
           class="p-6 rounded-2xl shadow-lg max-w-md w-full text-center mx-4 font-sans transition-colors duration-300"
           style={{
-            background: isDarkMode() ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
-            color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+            background: isDarkMode() === 'dark' ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
+            color: isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)',
           }}
         >
           <h2 class="text-xl font-semibold mb-4 flex justify-center items-center">Your Feedback</h2>
@@ -222,9 +222,9 @@ const FeedbackDialog = (props: {
             value={props.feedbackValue}
             onInput={(e) => props.setFeedbackValue(e.target.value)}
             style={{
-              'border-color': isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)',
-              'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
-              color: isDarkMode() ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+              'border-color': isDarkMode() === 'dark' ? 'var(--border-color-dark)' : 'var(--border-color-light)',
+              'background-color': isDarkMode() === 'dark' ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+              color: isDarkMode() === 'dark' ? 'var(--input-text-dark)' : 'var(--input-text-light)',
             }}
           />
 
@@ -264,7 +264,7 @@ const FormInputView = (props: {
 }) => {
   const [formData, setFormData] = createSignal<Record<string, any>>({});
   const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme();
+  const isDarkMode = resolvedTheme;
 
   const handleInputChange = (name: string, value: any) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -281,8 +281,8 @@ const FormInputView = (props: {
       style={{
         'font-family': 'Inter, sans-serif',
         'font-size': props.fontSize ? `${props.fontSize}px` : '16px',
-        background: isDarkMode() ? 'var(--bg-color-dark)' : 'var(--bg-color-light)',
-        color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+        background: isDarkMode() === 'dark' ? 'var(--bg-color-dark)' : 'var(--bg-color-light)',
+        color: isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)',
       }}
     >
       <div
@@ -290,14 +290,14 @@ const FormInputView = (props: {
         style={{
           'font-family': 'Inter, sans-serif',
           'font-size': props.fontSize ? `${props.fontSize}px` : '16px',
-          background: isDarkMode() ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
-          color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+          background: isDarkMode() === 'dark' ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
+          color: isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)',
         }}
       >
         <div class="p-6">
           <h2 class="text-xl font-bold mb-2">{props.title}</h2>
           {props.description && (
-            <p class="mb-6" style={{ color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)' }}>
+            <p class="mb-6" style={{ color: isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)' }}>
               {props.description}
             </p>
           )}
@@ -313,12 +313,12 @@ const FormInputView = (props: {
                       type="text"
                       class="w-full px-3 py-2 rounded-xl focus:outline-none transition-colors duration-300"
                       style={{
-                        border: `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
-                        'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
-                        color: isDarkMode() ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+                        border: `1px solid ${isDarkMode() === 'dark' ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
+                        'background-color': isDarkMode() === 'dark' ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+                        color: isDarkMode() === 'dark' ? 'var(--input-text-dark)' : 'var(--input-text-light)',
                       }}
                       onFocus={(e) => (e.target.style.border = '1px solid #3b82f6')}
-                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
+                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode() === 'dark' ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
                       name={param.name}
                       onInput={(e) => handleInputChange(param.name, e.target.value)}
                       required
@@ -330,12 +330,12 @@ const FormInputView = (props: {
                       type="number"
                       class="w-full px-3 py-2 rounded-xl focus:outline-none transition-colors duration-300"
                       style={{
-                        border: `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
-                        'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
-                        color: isDarkMode() ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+                        border: `1px solid ${isDarkMode() === 'dark' ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
+                        'background-color': isDarkMode() === 'dark' ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+                        color: isDarkMode() === 'dark' ? 'var(--input-text-dark)' : 'var(--input-text-light)',
                       }}
                       onFocus={(e) => (e.target.style.border = '1px solid #3b82f6')}
-                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
+                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode() === 'dark' ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
                       name={param.name}
                       onInput={(e) => handleInputChange(param.name, parseFloat(e.target.value))}
                       required
@@ -348,8 +348,8 @@ const FormInputView = (props: {
                         type="checkbox"
                         class="h-4 w-4 rounded text-blue-600 focus:ring-blue-500 transition-colors duration-300"
                         style={{
-                          border: `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
-                          'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+                          border: `1px solid ${isDarkMode() === 'dark' ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
+                          'background-color': isDarkMode() === 'dark' ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
                         }}
                         name={param.name}
                         onChange={(e) => handleInputChange(param.name, e.target.checked)}
@@ -362,12 +362,12 @@ const FormInputView = (props: {
                     <select
                       class="w-full px-3 py-2 rounded-xl focus:outline-none transition-colors duration-300"
                       style={{
-                        border: `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
-                        'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
-                        color: isDarkMode() ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+                        border: `1px solid ${isDarkMode() === 'dark' ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
+                        'background-color': isDarkMode() === 'dark' ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+                        color: isDarkMode() === 'dark' ? 'var(--input-text-dark)' : 'var(--input-text-light)',
                       }}
                       onFocus={(e) => (e.target.style.border = '1px solid #3b82f6')}
-                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
+                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode() === 'dark' ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
                       name={param.name}
                       onChange={(e) => handleInputChange(param.name, e.target.value)}
                       required
@@ -406,7 +406,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   let botContainer: HTMLDivElement | undefined;
 
   const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme();
+  const isDarkMode = resolvedTheme;
 
   const [userInput, setUserInput] = createSignal('');
   const [loading, setLoading] = createSignal(false);
@@ -427,7 +427,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   const [isMessageStopping, setIsMessageStopping] = createSignal(false);
   const [starterPrompts, setStarterPrompts] = createSignal<string[]>([], { equals: false });
   const [chatFeedbackStatus, setChatFeedbackStatus] = createSignal<boolean>(false);
-  const [fullFileUpload, setFullFileUpload] = createSignal<boolean>(false);
+  const [fullFileUpload, setFullFileUpload] = createSignal(false);
   const [uploadsConfig, setUploadsConfig] = createSignal<UploadsConfig>();
   const [leadsConfig, setLeadsConfig] = createSignal<LeadsConfig>();
   const [isLeadSaved, setIsLeadSaved] = createSignal(false);
@@ -457,7 +457,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   const [isLoadingRecording, setIsLoadingRecording] = createSignal(false);
 
   // follow-up prompts
-  const [followUpPromptsStatus, setFollowUpPromptsStatus] = createSignal<boolean>(false);
+  const [followUpPromptsStatus, setFollowUpPromptsStatus] = createSignal(false);
   const [followUpPrompts, setFollowUpPrompts] = createSignal<string[]>([]);
 
   // drag & drop
@@ -2323,7 +2323,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
         <div
           class={`inline-flex basis-auto flex-grow-0 flex-shrink-0 justify-between items-center rounded-xl h-12 p-1 mr-1 bg-gray-500`}
           style={{
-            width: `${chatContainer ? (botProps.isFullPage ? chatContainer?.offsetWidth / 4 : chatContainer?.offsetWidth / 2) : '200'}px`,
+            width: `${chatContainer ? (props.isFullPage ? chatContainer?.offsetWidth / 4 : chatContainer?.offsetWidth / 2) : '200'}px`,
           }}
         >
           <audio class="block bg-cover bg-center w-full h-full rounded-none text-transparent" controls src={item.data as string} />
@@ -2532,8 +2532,8 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                       data-testid="input"
                       style={{
                         margin: 'auto',
-                        'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
-                        color: isDarkMode() ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+                        'background-color': isDarkMode() === 'dark' ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+                        color: isDarkMode() === 'dark' ? 'var(--input-text-dark)' : 'var(--input-text-light)',
                       }}
                     >
                       <div class="flex items-center gap-3 px-4 py-2">
