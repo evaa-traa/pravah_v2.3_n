@@ -14,7 +14,7 @@ import livereload from 'rollup-plugin-livereload';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-const extensions = ['.ts', '.tsx'];
+const extensions = ['.ts', '.tsx']; // Ensure .tsx is included here
 
 const indexConfig = {
   context: 'this',
@@ -58,7 +58,7 @@ const indexConfig = {
 const configs = [
   {
     ...indexConfig,
-    input: './src/web.ts',
+    input: './src/web.tsx', // Changed from ./src/web.ts to ./src/web.tsx
     output: {
       file: 'dist/web.js',
       format: 'es',
@@ -66,7 +66,7 @@ const configs = [
   },
   {
     ...indexConfig,
-    input: './src/web.ts',
+    input: './src/web.tsx', // Changed from ./src/web.ts to ./src/web.tsx
     output: {
       file: 'dist/web.umd.js',
       format: 'umd',
