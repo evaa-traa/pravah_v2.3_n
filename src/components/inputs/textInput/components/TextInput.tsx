@@ -1,12 +1,13 @@
 import { ShortTextInput } from './ShortTextInput';
-import { isMobile } from '@/utils/isMobileSignal';
+import { isMobile } from '../../../../utils/isMobileSignal';
 import { Show, createSignal, createEffect, onMount, Setter } from 'solid-js';
-import { SendButton } from '@/components/buttons/SendButton';
-import { FileEvent, UploadsConfig } from '@/components/Bot';
-import { ImageUploadButton } from '@/components/buttons/ImageUploadButton';
-import { RecordAudioButton } from '@/components/buttons/RecordAudioButton';
-import { AttachmentUploadButton } from '@/components/buttons/AttachmentUploadButton';
-import { ChatInputHistory } from '@/utils/chatInputHistory';
+import { SendButton } from '../../buttons/SendButton';
+import { FileEvent, UploadsConfig } from '../../Bot';
+import { ImageUploadButton } from '../../buttons/ImageUploadButton';
+import { RecordAudioButton } from '../../buttons/RecordAudioButton';
+import { AttachmentUploadButton } from '../../buttons/AttachmentUploadButton';
+import { ChatInputHistory } from '../../../../utils/chatInputHistory';
+import { useTheme } from '../../../../context/ThemeContext';
 
 type TextInputProps = {
   placeholder?: string;
@@ -46,6 +47,9 @@ export const TextInput = (props: TextInputProps) => {
   let fileUploadRef: HTMLInputElement | HTMLTextAreaElement | undefined;
   let imgUploadRef: HTMLInputElement | HTMLTextAreaElement | undefined;
   let audioRef: HTMLAudioElement | undefined;
+
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme();
 
   const handleInput = (inputValue: string) => {
     const wordCount = inputValue.length;
@@ -131,7 +135,7 @@ export const TextInput = (props: TextInputProps) => {
   const getFileType = () => {
     if (props.isFullFileUpload) return props.fullFileUploadAllowedTypes === '' ? '*' : props.fullFileUploadAllowedTypes;
     if (props.uploadsConfig?.fileUploadSizeAndTypes?.length) {
-      const allowedFileTypes = props.uploadsConfig?.fileUploadSizeAndTypes.map((allowed) => allowed.fileTypes).join(',');
+      const allowedFileTypes = props.uploadsConfig?.fileUploadSizeAndTypes.map((allowed: { fileTypes: string[] }) => allowed.fileTypes).join(',');
       if (allowedFileTypes.includes('*')) return '*';
       else return allowedFileTypes;
     }
@@ -140,12 +144,14 @@ export const TextInput = (props: TextInputProps) => {
 
   return (
     <div
-      class="w-full h-auto max-h-[192px] min-h-[56px] flex flex-col items-end justify-between chatbot-input border border-[#eeeeee]"
+      class="w-full h-auto max-h-[192px] min-h-[56px] flex flex-col items-end justify-between chatbot-input border rounded-xl shadow-md transition-colors duration-300"
       data-testid="input"
       style={{
         margin: 'auto',
-        'background-color': props.backgroundColor ?? defaultBackgroundColor,
-        color: props.textColor ?? defaultTextColor,
+        'background-color': isDarkMode ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+        color: isDarkMode ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+        'border-color': isDarkMode ? 'var(--border-color-dark)' : 'var(--border-color-light)',
+        'box-shadow': isDarkMode ? '0 2px 6px -1px var(--shadow-color-dark)' : '0 2px 6px -1px var(--shadow-color-light)',
       }}
       onKeyDown={handleKeyDown}
     >
@@ -164,7 +170,7 @@ export const TextInput = (props: TextInputProps) => {
               isDisabled={props.disabled || isSendButtonDisabled()}
               on:click={handleImageUploadClick}
             >
-              <span style={{ 'font-family': 'Poppins, sans-serif' }}>Image Upload</span>
+              <span style={{ 'font-family': 'Inter, sans-serif' }}>Image Upload</span>
             </ImageUploadButton>
             <input
               style={{ display: 'none' }}
@@ -174,7 +180,7 @@ export const TextInput = (props: TextInputProps) => {
               onChange={handleFileChange}
               accept={
                 props.uploadsConfig?.imgUploadSizeAndTypes?.length
-                  ? props.uploadsConfig?.imgUploadSizeAndTypes.map((allowed) => allowed.fileTypes).join(',')
+                  ? props.uploadsConfig?.imgUploadSizeAndTypes.map((allowed: { fileTypes: string[] }) => allowed.fileTypes).join(',')
                   : '*'
               }
             />
@@ -189,7 +195,7 @@ export const TextInput = (props: TextInputProps) => {
               isDisabled={props.disabled || isSendButtonDisabled()}
               on:click={handleFileUploadClick}
             >
-              <span style={{ 'font-family': 'Poppins, sans-serif' }}>File Upload</span>
+              <span style={{ 'font-family': 'Inter, sans-serif' }}>File Upload</span>
             </AttachmentUploadButton>
             <input
               style={{ display: 'none' }}
@@ -207,7 +213,7 @@ export const TextInput = (props: TextInputProps) => {
           value={props.inputValue}
           fontSize={props.fontSize}
           disabled={props.disabled}
-          placeholder={props.placeholder ?? 'Type your question'}
+          placeholder={props.placeholder ?? 'Message ChatGPT...'}
         />
         {props.uploadsConfig?.isSpeechToTextEnabled ? (
           <RecordAudioButton
@@ -217,7 +223,7 @@ export const TextInput = (props: TextInputProps) => {
             isDisabled={props.disabled || isSendButtonDisabled()}
             on:click={props.onMicrophoneClicked}
           >
-            <span style={{ 'font-family': 'Poppins, sans-serif' }}>Record Audio</span>
+            <span style={{ 'font-family': 'Inter, sans-serif' }}>Record Audio</span>
           </RecordAudioButton>
         ) : null}
         <SendButton
@@ -227,7 +233,7 @@ export const TextInput = (props: TextInputProps) => {
           class="m-0 h-14 flex items-center justify-center"
           on:click={submit}
         >
-          <span style={{ 'font-family': 'Poppins, sans-serif' }}>Send</span>
+          <span style={{ 'font-family': 'Inter, sans-serif' }}>Send</span>
         </SendButton>
       </div>
     </div>

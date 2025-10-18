@@ -1,16 +1,17 @@
 import { createEffect, Show, createSignal, onMount, For } from 'solid-js';
 import { Avatar } from '../avatars/Avatar';
 import { Marked } from '@ts-stack/markdown';
-import { FeedbackRatingType, sendFeedbackQuery, sendFileDownloadQuery, updateFeedbackQuery } from '@/queries/sendMessageQuery';
+import { FeedbackRatingType, sendFeedbackQuery, sendFileDownloadQuery, updateFeedbackQuery } from '../../queries/sendMessageQuery';
 import { FileUpload, IAction, MessageType } from '../Bot';
 import { CopyToClipboardButton, ThumbsDownButton, ThumbsUpButton } from '../buttons/FeedbackButtons';
 import { TTSButton } from '../buttons/TTSButton';
 import FeedbackContentDialog from '../FeedbackContentDialog';
 import { AgentReasoningBubble } from './AgentReasoningBubble';
-import { TickIcon, XIcon } from '../icons';
+import { TickIcon, XIcon, RegenerateIcon, StopIcon } from '../icons';
 import { SourceBubble } from '../bubbles/SourceBubble';
-import { DateTimeToggleTheme } from '@/features/bubble/types';
+import { DateTimeToggleTheme } from '../../features/bubble/types';
 import { WorkflowTreeView } from '../treeview/WorkflowTreeView';
+import { useTheme } from '../../context/ThemeContext';
 
 type Props = {
   message: MessageType;
@@ -39,15 +40,21 @@ type Props = {
   isTTSPlaying?: Record<string, boolean>;
   handleTTSClick?: (messageId: string, messageText: string) => void;
   handleTTSStop?: (messageId: string) => void;
+  // New props for regenerate/stop
+  onRegenerate?: () => void;
+  onStop?: () => void;
+  isStreaming?: boolean;
 };
 
-const defaultBackgroundColor = '#f7f8ff';
-const defaultTextColor = '#303235';
+const defaultBackgroundColor = '#f3f4f6'; // light gray for AI
+const defaultTextColor = '#374151'; // gray-700
 const defaultFontSize = 16;
 const defaultFeedbackColor = '#3B81F6';
 
 export const BotBubble = (props: Props) => {
   let botDetailsEl: HTMLDetailsElement | undefined;
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme();
 
   Marked.setOptions({ isNoP: true, sanitize: props.renderHTML !== undefined ? !props.renderHTML : true });
 
@@ -66,7 +73,7 @@ export const BotBubble = (props: Props) => {
       el.innerHTML = Marked.parse(props.message.message);
 
       // Apply textColor to all links, headings, and other markdown elements except code
-      const textColor = props.textColor ?? defaultTextColor;
+      const textColor = isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)';
       el.querySelectorAll('a, h1, h2, h3, h4, h5, h6, strong, em, blockquote, li').forEach((element) => {
         (element as HTMLElement).style.color = textColor;
       });
@@ -287,7 +294,7 @@ export const BotBubble = (props: Props) => {
     // Instead of onMount, we'll use a callback ref to apply styles
     const setArtifactRef = (el: HTMLSpanElement) => {
       if (el) {
-        const textColor = props.textColor ?? defaultTextColor;
+        const textColor = isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)';
         // Apply textColor to all elements except code blocks
         el.querySelectorAll('a, h1, h2, h3, h4, h5, h6, strong, em, blockquote, li').forEach((element) => {
           (element as HTMLElement).style.color = textColor;
@@ -341,9 +348,9 @@ export const BotBubble = (props: Props) => {
             innerHTML={Marked.parse(item.data as string)}
             class="prose"
             style={{
-              'background-color': props.backgroundColor ?? defaultBackgroundColor,
-              color: props.textColor ?? defaultTextColor,
-              'border-radius': '6px',
+              'background-color': isDarkMode ? 'var(--ai-bubble-bg-dark)' : 'var(--ai-bubble-bg-light)',
+              color: isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+              'border-radius': '0.75rem', // rounded-xl
               'font-size': props.fontSize ? `${props.fontSize}px` : `${defaultFontSize}px`,
             }}
           />
@@ -411,7 +418,7 @@ export const BotBubble = (props: Props) => {
               </div>
             )}
           {props.showAgentMessages && props.message.agentReasoning && (
-            <details ref={botDetailsEl} class="mb-2 px-4 py-2 ml-2 chatbot-host-bubble rounded-[6px]">
+            <details ref={botDetailsEl} class="mb-2 px-4 py-2 ml-2 chatbot-host-bubble rounded-xl">
               <summary class="cursor-pointer">
                 <span class="italic">Agent Messages</span>
               </summary>
@@ -451,12 +458,11 @@ export const BotBubble = (props: Props) => {
           {props.message.message && (
             <span
               ref={setBotMessageRef}
-              class="px-4 py-2 ml-2 max-w-full chatbot-host-bubble prose"
+              class="px-4 py-2 ml-2 max-w-full chatbot-host-bubble prose rounded-2xl shadow-sm"
               data-testid="host-bubble"
               style={{
-                'background-color': props.backgroundColor ?? defaultBackgroundColor,
-                color: props.textColor ?? defaultTextColor,
-                'border-radius': '6px',
+                'background-color': isDarkMode ? 'var(--ai-bubble-bg-dark)' : 'var(--ai-bubble-bg-light)',
+                color: isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)',
                 'font-size': props.fontSize ? `${props.fontSize}px` : `${defaultFontSize}px`,
               }}
             />
@@ -470,7 +476,7 @@ export const BotBubble = (props: Props) => {
                       {(action.type === 'approve-button' && action.label === 'Yes') || action.type === 'agentflowv2-approve-button' ? (
                         <button
                           type="button"
-                          class="px-4 py-2 font-medium text-green-600 border border-green-600 rounded-full hover:bg-green-600 hover:text-white transition-colors duration-300 flex items-center space-x-2"
+                          class="px-4 py-2 font-medium text-green-600 border border-green-600 rounded-xl hover:bg-green-600 hover:text-white transition-colors duration-300 flex items-center space-x-2"
                           onClick={() => props.handleActionClick(action, props.message.action)}
                         >
                           <TickIcon />
@@ -480,7 +486,7 @@ export const BotBubble = (props: Props) => {
                       ) : (action.type === 'reject-button' && action.label === 'No') || action.type === 'agentflowv2-reject-button' ? (
                         <button
                           type="button"
-                          class="px-4 py-2 font-medium text-red-600 border border-red-600 rounded-full hover:bg-red-600 hover:text-white transition-colors duration-300 flex items-center space-x-2"
+                          class="px-4 py-2 font-medium text-red-600 border border-red-600 rounded-xl hover:bg-red-600 hover:text-white transition-colors duration-300 flex items-center space-x-2"
                           onClick={() => props.handleActionClick(action, props.message.action)}
                         >
                           <XIcon isCurrentColor={true} />
@@ -502,7 +508,7 @@ export const BotBubble = (props: Props) => {
         {props.message.sourceDocuments && props.message.sourceDocuments.length && (
           <>
             <Show when={props.sourceDocsTitle}>
-              <span class="px-2 py-[10px] font-semibold">{props.sourceDocsTitle}</span>
+              <span class="px-2 py-[10px] font-semibold text-gray-700 dark:text-gray-300">{props.sourceDocsTitle}</span>
             </Show>
             <div style={{ display: 'flex', 'flex-direction': 'row', width: '100%', 'flex-wrap': 'wrap' }}>
               <For each={[...removeDuplicateURL(props.message)]}>
@@ -582,6 +588,24 @@ export const BotBubble = (props: Props) => {
               </Show>
             </>
           )}
+          <Show when={!props.isLoading && props.onRegenerate}>
+            <button
+              onClick={props.onRegenerate}
+              class="ml-2 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+              title="Regenerate response"
+            >
+              <RegenerateIcon class="w-4 h-4 text-gray-500 dark:text-gray-300" />
+            </button>
+          </Show>
+          <Show when={props.isStreaming && props.onStop}>
+            <button
+              onClick={props.onStop}
+              class="ml-2 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+              title="Stop generation"
+            >
+              <StopIcon class="w-4 h-4 text-red-500" />
+            </button>
+          </Show>
         </div>
         <Show when={showFeedbackContentDialog()}>
           <FeedbackContentDialog

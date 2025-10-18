@@ -5,6 +5,8 @@ import { BubbleParams } from '../types';
 import { Bot, BotProps } from '../../../components/Bot';
 import Tooltip from './Tooltip';
 import { getBubbleButtonSize } from '@/utils';
+import { ThemeProvider } from '@/context/ThemeContext';
+import { ChatLayout } from '@/components/layout/ChatLayout';
 
 const defaultButtonColor = '#3B81F6';
 const defaultIconColor = 'white';
@@ -100,7 +102,7 @@ export const Bubble = (props: BubbleProps) => {
           right: `${Math.max(0, Math.min(buttonPosition().right, window.innerWidth - (bubbleProps.theme?.chatWindow?.width ?? 410) - 10))}px`,
         }}
         class={
-          `fixed sm:right-5 rounded-lg w-full sm:w-[400px] max-h-[704px]` +
+          `fixed sm:right-5 rounded-2xl w-full sm:w-[400px] max-h-[704px]` +
           (isBotOpened() ? ' opacity-1' : ' opacity-0 pointer-events-none') +
           ` bottom-${chatWindowBottom}px`
         }

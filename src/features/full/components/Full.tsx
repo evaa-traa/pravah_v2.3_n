@@ -2,6 +2,8 @@ import styles from '../../../assets/index.css';
 import { Bot, BotProps } from '@/components/Bot';
 import { BubbleParams } from '@/features/bubble/types';
 import { createSignal, onCleanup, onMount, Show } from 'solid-js';
+import { ThemeProvider } from '@/context/ThemeContext';
+import { ChatLayout } from '@/components/layout/ChatLayout';
 
 const defaultButtonColor = '#3B81F6';
 const defaultIconColor = 'white';

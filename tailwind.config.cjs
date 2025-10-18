@@ -28,9 +28,13 @@ function rem2px(input, fontSize = 16) {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
+    darkMode: 'class', // Enable dark mode based on 'dark' class
     theme: {
         ...rem2px(defaultTheme),
         extend: {
+            fontFamily: {
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+            },
             keyframes: {
                 'fade-in': {
                     '0%': {

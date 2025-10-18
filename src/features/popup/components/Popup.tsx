@@ -1,6 +1,7 @@
 import styles from '../../../assets/index.css';
 import { createSignal, Show, splitProps, createEffect, onMount } from 'solid-js';
-import { isNotDefined } from '@/utils/index';
+import { isNotDefined } from '../../../utils/index';
+import { useTheme } from '../../../context/ThemeContext';
 
 export type PopupProps = {
   value?: any;
@@ -9,7 +10,7 @@ export type PopupProps = {
   onClose?: () => void;
 };
 
-function syntaxHighlight(json: any) {
+function syntaxHighlight(json: any, isDarkMode: boolean) {
   if (typeof json != 'string') {
     json = JSON.stringify(json, undefined, 2);
   }
@@ -30,19 +31,27 @@ function syntaxHighlight(json: any) {
       } else if (/null/.test(match)) {
         cls = 'null';
       }
-      return '<span class="' + cls + '">' + match + '</span>';
+      return `<span class="${cls}">${match}</span>`;
     },
   );
 }
 
 export const Popup = (props: PopupProps) => {
   let preEl: HTMLPreElement | undefined;
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme();
 
   const [popupProps] = splitProps(props, ['onOpen', 'onClose', 'isOpen', 'value']);
 
   onMount(() => {
     if (preEl) {
-      preEl.innerHTML = syntaxHighlight(JSON.stringify(props?.value, undefined, 2));
+      preEl.innerHTML = syntaxHighlight(JSON.stringify(props?.value, undefined, 2), isDarkMode());
+    }
+  });
+
+  createEffect(() => {
+    if (preEl) {
+      preEl.innerHTML = syntaxHighlight(JSON.stringify(props?.value, undefined, 2), isDarkMode());
     }
   });
 
@@ -85,17 +94,27 @@ export const Popup = (props: PopupProps) => {
         <div class="fixed inset-0 z-10 overflow-y-auto">
           <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
             <div
-              class="relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
+              class="relative transform overflow-hidden rounded-2xl text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
               style={{
-                'background-color': 'transparent',
-                'margin-left': '20px',
-                'margin-right': '20px',
+                background: isDarkMode() ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
+                color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+                margin: 'auto',
+                padding: '7px',
+                'border-radius': '0.75rem', // rounded-xl
               }}
               on:click={stopPropagation}
               on:pointerdown={stopPropagation}
             >
               {props.value && (
-                <div style={{ background: 'white', margin: 'auto', padding: '7px' }}>
+                <div
+                  style={{
+                    background: isDarkMode() ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
+                    color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+                    margin: 'auto',
+                    padding: '7px',
+                    'border-radius': '0.75rem', // rounded-xl
+                  }}
+                >
                   <pre ref={preEl} />
                 </div>
               )}
