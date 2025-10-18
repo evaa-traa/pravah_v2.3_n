@@ -1,6 +1,6 @@
-import { FeedbackRatingType } from '@/queries/sendMessageQuery';
-import { BotMessageTheme, FooterTheme, TextInputTheme, UserMessageTheme, FeedbackTheme, DisclaimerPopUpTheme, DateTimeToggleTheme } from '@/features/bubble/types';
-import { FilePreview } from '@/components/inputs/textInput/components/FilePreview';
+import { FeedbackRatingType } from '../queries/sendMessageQuery';
+import { BotMessageTheme, FooterTheme, TextInputTheme, UserMessageTheme, FeedbackTheme, DisclaimerPopUpTheme, DateTimeToggleTheme } from '../features/bubble/types';
+import { FilePreview } from './inputs/textInput/components/FilePreview';
 export type FileEvent<T = EventTarget> = {
     target: T;
 };
@@ -57,7 +57,7 @@ export type AgentFlowExecutedData = {
     nodeId: string;
     data: any;
     previousNodeIds: string[];
-    status?: ExecutionState;
+    status: ExecutionState;
 };
 export type MessageType = {
     messageId?: string;

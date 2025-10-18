@@ -1,5 +1,5 @@
 import { IAction, MessageType } from '../Bot';
-import { DateTimeToggleTheme } from '@/features/bubble/types';
+import { DateTimeToggleTheme } from '../../features/bubble/types';
 type Props = {
     message: MessageType;
     chatflowid: string;
@@ -26,6 +26,9 @@ type Props = {
     isTTSPlaying?: Record<string, boolean>;
     handleTTSClick?: (messageId: string, messageText: string) => void;
     handleTTSStop?: (messageId: string) => void;
+    onRegenerate?: () => void;
+    onStop?: () => void;
+    isStreaming?: boolean;
 };
 export declare const BotBubble: (props: Props) => import("solid-js").JSX.Element;
 export {};

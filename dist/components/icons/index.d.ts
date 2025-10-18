@@ -13,4 +13,11 @@ export * from './AttachmentIcon';
 export * from './SparklesIcon';
 export * from './VolumeIcon';
 export * from './SquareStopIcon';
+export * from './MenuIcon';
+export * from './SunIcon';
+export * from './MoonIcon';
+export * from './PlusIcon';
+export * from './EditIcon';
+export * from './RegenerateIcon';
+export * from './StopIcon';
 //# sourceMappingURL=index.d.ts.map

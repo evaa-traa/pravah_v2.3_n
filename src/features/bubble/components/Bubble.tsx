@@ -5,8 +5,7 @@ import { BubbleParams } from '../types';
 import { Bot, BotProps } from '../../../components/Bot';
 import Tooltip from './Tooltip';
 import { getBubbleButtonSize } from '@/utils';
-import { ThemeProvider } from '@/context/ThemeContext';
-import { ChatLayout } from '@/components/layout/ChatLayout';
+import { ThemeProvider } from '@/context/ThemeContext'; // Ensure ThemeProvider is imported
 
 const defaultButtonColor = '#3B81F6';
 const defaultIconColor = 'white';
