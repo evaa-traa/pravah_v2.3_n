@@ -2,25 +2,25 @@
 import { parseChatbot, injectChatbotInWindow } from './window';
 import { ThemeProvider } from './context/ThemeContext';
 import { ChatLayout } from './components/layout/ChatLayout';
-import { customElement, ICustomElement } from 'solid-element'; // Re-import ICustomElement
+import { customElement } from 'solid-element';
 import { defaultBotProps } from './constants';
 import { Bubble, BubbleProps } from './features/bubble';
 import { Full, FullProps } from './features/full';
 import { JSX } from 'solid-js';
 
 // Define a wrapper for the Full component to include ThemeProvider and ChatLayout
-const FullWithLayout = (props: FullProps, options: { element: ICustomElement }): JSX.Element => { // Use ICustomElement
+const FullWithLayout = (props: FullProps, options: any): JSX.Element => { // Changed type to 'any'
   return (
     <ThemeProvider>
       <ChatLayout>
-        <Full {...props} element={options.element as HTMLElement} /> {/* Cast to HTMLElement */}
+        <Full {...props} element={options.element as HTMLElement} /> {/* Cast element to HTMLElement */}
       </ChatLayout>
     </ThemeProvider>
   );
 };
 
 // Define a wrapper for the Bubble component to include ThemeProvider and ChatLayout
-const BubbleWithLayout = (props: BubbleProps, options: { element: ICustomElement }): JSX.Element => { // Use ICustomElement
+const BubbleWithLayout = (props: BubbleProps, options: any): JSX.Element => { // Changed type to 'any'
   return (
     <ThemeProvider>
       <ChatLayout>
