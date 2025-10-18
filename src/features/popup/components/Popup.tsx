@@ -45,13 +45,13 @@ export const Popup = (props: PopupProps) => {
 
   onMount(() => {
     if (preEl) {
-      preEl.innerHTML = syntaxHighlight(JSON.stringify(props?.value, undefined, 2), isDarkMode());
+      preEl.innerHTML = syntaxHighlight(JSON.stringify(props?.value, undefined, 2), isDarkMode() === 'dark');
     }
   });
 
   createEffect(() => {
     if (preEl) {
-      preEl.innerHTML = syntaxHighlight(JSON.stringify(props?.value, undefined, 2), isDarkMode());
+      preEl.innerHTML = syntaxHighlight(JSON.stringify(props?.value, undefined, 2), isDarkMode() === 'dark');
     }
   });
 
@@ -96,8 +96,8 @@ export const Popup = (props: PopupProps) => {
             <div
               class="relative transform overflow-hidden rounded-2xl text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
               style={{
-                background: isDarkMode() ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
-                color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+                background: isDarkMode() === 'dark' ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
+                color: isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)',
                 margin: 'auto',
                 padding: '7px',
                 'border-radius': '0.75rem', // rounded-xl
@@ -108,8 +108,8 @@ export const Popup = (props: PopupProps) => {
               {props.value && (
                 <div
                   style={{
-                    background: isDarkMode() ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
-                    color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+                    background: isDarkMode() === 'dark' ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
+                    color: isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)',
                     margin: 'auto',
                     padding: '7px',
                     'border-radius': '0.75rem', // rounded-xl

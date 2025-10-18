@@ -56,15 +56,15 @@ export const DisclaimerPopup = (props: DisclaimerPopupProps) => {
         <div
           class="p-10 rounded-2xl shadow-lg max-w-md w-full text-center mx-4 font-sans transition-colors duration-300"
           style={{
-            background: isDarkMode() ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
-            color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+            background: isDarkMode() === 'dark' ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
+            color: isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)',
           }}
         >
           <h2 class="text-2xl font-semibold mb-4 flex justify-center items-center">{popupProps.title ?? 'Disclaimer'}</h2>
 
           <p
             class="text-base mb-6"
-            style={{ color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)' }}
+            style={{ color: isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)' }}
             innerHTML={
               popupProps.message ??
               'By using this chatbot, you agree to the <a target="_blank" href="https://flowiseai.com/terms">Terms & Condition</a>.'

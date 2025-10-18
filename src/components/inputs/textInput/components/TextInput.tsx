@@ -1,11 +1,11 @@
 import { ShortTextInput } from './ShortTextInput';
 import { isMobile } from '../../../../utils/isMobileSignal';
 import { Show, createSignal, createEffect, onMount, Setter } from 'solid-js';
-import { SendButton } from '../../buttons/SendButton';
+import { SendButton } from '../../../buttons/SendButton';
 import { FileEvent, UploadsConfig } from '../../Bot';
-import { ImageUploadButton } from '../../buttons/ImageUploadButton';
-import { RecordAudioButton } from '../../buttons/RecordAudioButton';
-import { AttachmentUploadButton } from '../../buttons/AttachmentUploadButton';
+import { ImageUploadButton } from '../../../buttons/ImageUploadButton';
+import { RecordAudioButton } from '../../../buttons/RecordAudioButton';
+import { AttachmentUploadButton } from '../../../buttons/AttachmentUploadButton';
 import { ChatInputHistory } from '../../../../utils/chatInputHistory';
 import { useTheme } from '../../../../context/ThemeContext';
 
@@ -148,10 +148,10 @@ export const TextInput = (props: TextInputProps) => {
       data-testid="input"
       style={{
         margin: 'auto',
-        'background-color': isDarkMode ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
-        color: isDarkMode ? 'var(--input-text-dark)' : 'var(--input-text-light)',
-        'border-color': isDarkMode ? 'var(--border-color-dark)' : 'var(--border-color-light)',
-        'box-shadow': isDarkMode ? '0 2px 6px -1px var(--shadow-color-dark)' : '0 2px 6px -1px var(--shadow-color-light)',
+        'background-color': isDarkMode() === 'dark' ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+        color: isDarkMode() === 'dark' ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+        'border-color': isDarkMode() === 'dark' ? 'var(--border-color-dark)' : 'var(--border-color-light)',
+        'box-shadow': isDarkMode() === 'dark' ? '0 2px 6px -1px var(--shadow-color-dark)' : '0 2px 6px -1px var(--shadow-color-light)',
       }}
       onKeyDown={handleKeyDown}
     >

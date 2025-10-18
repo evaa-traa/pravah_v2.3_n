@@ -94,8 +94,8 @@ export const GuestBubble = (props: Props) => {
         class="max-w-full flex flex-col justify-center items-start chatbot-guest-bubble px-4 py-2 gap-2 mr-2 rounded-2xl shadow-sm"
         data-testid="guest-bubble"
         style={{
-          'background-color': isDarkMode ? 'var(--user-bubble-bg-dark)' : 'var(--user-bubble-bg-light)',
-          color: isDarkMode ? 'var(--user-bubble-text-dark)' : 'var(--user-bubble-text-light)',
+          'background-color': isDarkMode() === 'dark' ? 'var(--user-bubble-bg-dark)' : 'var(--user-bubble-bg-light)',
+          color: isDarkMode() === 'dark' ? 'var(--user-bubble-text-dark)' : 'var(--user-bubble-text-light)',
         }}
       >
         {props.message.fileUploads && props.message.fileUploads.length > 0 && (

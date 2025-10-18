@@ -73,7 +73,7 @@ export const BotBubble = (props: Props) => {
       el.innerHTML = Marked.parse(props.message.message);
 
       // Apply textColor to all links, headings, and other markdown elements except code
-      const textColor = isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)';
+      const textColor = isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)';
       el.querySelectorAll('a, h1, h2, h3, h4, h5, h6, strong, em, blockquote, li').forEach((element) => {
         (element as HTMLElement).style.color = textColor;
       });
@@ -294,7 +294,7 @@ export const BotBubble = (props: Props) => {
     // Instead of onMount, we'll use a callback ref to apply styles
     const setArtifactRef = (el: HTMLSpanElement) => {
       if (el) {
-        const textColor = isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)';
+        const textColor = isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)';
         // Apply textColor to all elements except code blocks
         el.querySelectorAll('a, h1, h2, h3, h4, h5, h6, strong, em, blockquote, li').forEach((element) => {
           (element as HTMLElement).style.color = textColor;
@@ -348,8 +348,8 @@ export const BotBubble = (props: Props) => {
             innerHTML={Marked.parse(item.data as string)}
             class="prose"
             style={{
-              'background-color': isDarkMode ? 'var(--ai-bubble-bg-dark)' : 'var(--ai-bubble-bg-light)',
-              color: isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+              'background-color': isDarkMode() === 'dark' ? 'var(--ai-bubble-bg-dark)' : 'var(--ai-bubble-bg-light)',
+              color: isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)',
               'border-radius': '0.75rem', // rounded-xl
               'font-size': props.fontSize ? `${props.fontSize}px` : `${defaultFontSize}px`,
             }}
@@ -461,8 +461,8 @@ export const BotBubble = (props: Props) => {
               class="px-4 py-2 ml-2 max-w-full chatbot-host-bubble prose rounded-2xl shadow-sm"
               data-testid="host-bubble"
               style={{
-                'background-color': isDarkMode ? 'var(--ai-bubble-bg-dark)' : 'var(--ai-bubble-bg-light)',
-                color: isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+                'background-color': isDarkMode() === 'dark' ? 'var(--ai-bubble-bg-dark)' : 'var(--ai-bubble-bg-light)',
+                color: isDarkMode() === 'dark' ? 'var(--text-color-dark)' : 'var(--text-color-light)',
                 'font-size': props.fontSize ? `${props.fontSize}px` : `${defaultFontSize}px`,
               }}
             />

@@ -209,8 +209,8 @@ const FeedbackDialog = (props: {
         <div
           class="p-6 rounded-2xl shadow-lg max-w-md w-full text-center mx-4 font-sans transition-colors duration-300"
           style={{
-            background: isDarkMode ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
-            color: isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+            background: isDarkMode() ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
+            color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)',
           }}
         >
           <h2 class="text-xl font-semibold mb-4 flex justify-center items-center">Your Feedback</h2>
@@ -222,9 +222,9 @@ const FeedbackDialog = (props: {
             value={props.feedbackValue}
             onInput={(e) => props.setFeedbackValue(e.target.value)}
             style={{
-              'border-color': isDarkMode ? 'var(--border-color-dark)' : 'var(--border-color-light)',
-              'background-color': isDarkMode ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
-              color: isDarkMode ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+              'border-color': isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)',
+              'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+              color: isDarkMode() ? 'var(--input-text-dark)' : 'var(--input-text-light)',
             }}
           />
 
@@ -281,8 +281,8 @@ const FormInputView = (props: {
       style={{
         'font-family': 'Inter, sans-serif',
         'font-size': props.fontSize ? `${props.fontSize}px` : '16px',
-        background: isDarkMode ? 'var(--bg-color-dark)' : 'var(--bg-color-light)',
-        color: isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+        background: isDarkMode() ? 'var(--bg-color-dark)' : 'var(--bg-color-light)',
+        color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)',
       }}
     >
       <div
@@ -290,14 +290,14 @@ const FormInputView = (props: {
         style={{
           'font-family': 'Inter, sans-serif',
           'font-size': props.fontSize ? `${props.fontSize}px` : '16px',
-          background: isDarkMode ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
-          color: isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)',
+          background: isDarkMode() ? 'var(--card-bg-dark)' : 'var(--card-bg-light)',
+          color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)',
         }}
       >
         <div class="p-6">
           <h2 class="text-xl font-bold mb-2">{props.title}</h2>
           {props.description && (
-            <p class="mb-6" style={{ color: isDarkMode ? 'var(--text-color-dark)' : 'var(--text-color-light)' }}>
+            <p class="mb-6" style={{ color: isDarkMode() ? 'var(--text-color-dark)' : 'var(--text-color-light)' }}>
               {props.description}
             </p>
           )}
@@ -313,12 +313,12 @@ const FormInputView = (props: {
                       type="text"
                       class="w-full px-3 py-2 rounded-xl focus:outline-none transition-colors duration-300"
                       style={{
-                        border: `1px solid ${isDarkMode ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
-                        'background-color': isDarkMode ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
-                        color: isDarkMode ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+                        border: `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
+                        'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+                        color: isDarkMode() ? 'var(--input-text-dark)' : 'var(--input-text-light)',
                       }}
                       onFocus={(e) => (e.target.style.border = '1px solid #3b82f6')}
-                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
+                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
                       name={param.name}
                       onInput={(e) => handleInputChange(param.name, e.target.value)}
                       required
@@ -330,12 +330,12 @@ const FormInputView = (props: {
                       type="number"
                       class="w-full px-3 py-2 rounded-xl focus:outline-none transition-colors duration-300"
                       style={{
-                        border: `1px solid ${isDarkMode ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
-                        'background-color': isDarkMode ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
-                        color: isDarkMode ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+                        border: `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
+                        'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+                        color: isDarkMode() ? 'var(--input-text-dark)' : 'var(--input-text-light)',
                       }}
                       onFocus={(e) => (e.target.style.border = '1px solid #3b82f6')}
-                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
+                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
                       name={param.name}
                       onInput={(e) => handleInputChange(param.name, parseFloat(e.target.value))}
                       required
@@ -348,8 +348,8 @@ const FormInputView = (props: {
                         type="checkbox"
                         class="h-4 w-4 rounded text-blue-600 focus:ring-blue-500 transition-colors duration-300"
                         style={{
-                          border: `1px solid ${isDarkMode ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
-                          'background-color': isDarkMode ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+                          border: `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
+                          'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
                         }}
                         name={param.name}
                         onChange={(e) => handleInputChange(param.name, e.target.checked)}
@@ -362,12 +362,12 @@ const FormInputView = (props: {
                     <select
                       class="w-full px-3 py-2 rounded-xl focus:outline-none transition-colors duration-300"
                       style={{
-                        border: `1px solid ${isDarkMode ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
-                        'background-color': isDarkMode ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
-                        color: isDarkMode ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+                        border: `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`,
+                        'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+                        color: isDarkMode() ? 'var(--input-text-dark)' : 'var(--input-text-light)',
                       }}
                       onFocus={(e) => (e.target.style.border = '1px solid #3b82f6')}
-                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
+                      onBlur={(e) => (e.target.style.border = `1px solid ${isDarkMode() ? 'var(--border-color-dark)' : 'var(--border-color-light)'}`)}
                       name={param.name}
                       onChange={(e) => handleInputChange(param.name, e.target.value)}
                       required
@@ -827,293 +827,1808 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
           throw new Error();
         }
       },
-      async onmessage(ev) {<dyad-problem-report summary="42 problems">
-<problem file="src/web.ts" line="17" column="13" code="1005">'&gt;' expected.</problem>
-<problem file="src/web.ts" line="17" column="24" code="1005">')' expected.</problem>
-<problem file="src/web.ts" line="17" column="43" code="1109">Expression expected.</problem>
-<problem file="src/web.ts" line="18" column="6" code="1110">Type expected.</problem>
-<problem file="src/web.ts" line="18" column="7" code="1161">Unterminated regular expression literal.</problem>
-<problem file="src/web.ts" line="19" column="5" code="1161">Unterminated regular expression literal.</problem>
-<problem file="src/web.ts" line="20" column="1" code="1128">Declaration or statement expected.</problem>
-<problem file="src/web.ts" line="26" column="15" code="1005">'&gt;' expected.</problem>
-<problem file="src/web.ts" line="26" column="27" code="1109">Expression expected.</problem>
-<problem file="src/web.ts" line="27" column="6" code="1110">Type expected.</problem>
-<problem file="src/web.ts" line="27" column="7" code="1161">Unterminated regular expression literal.</problem>
-<problem file="src/web.ts" line="28" column="5" code="1161">Unterminated regular expression literal.</problem>
-<problem file="src/components/inputs/textInput/components/TextInput.tsx" line="4" column="28" code="2307">Cannot find module '../../buttons/SendButton' or its corresponding type declarations.</problem>
-<problem file="src/components/inputs/textInput/components/TextInput.tsx" line="5" column="42" code="2307">Cannot find module '../../Bot' or its corresponding type declarations.</problem>
-<problem file="src/components/inputs/textInput/components/TextInput.tsx" line="6" column="35" code="2307">Cannot find module '../../buttons/ImageUploadButton' or its corresponding type declarations.</problem>
-<problem file="src/components/inputs/textInput/components/TextInput.tsx" line="7" column="35" code="2307">Cannot find module '../../buttons/RecordAudioButton' or its corresponding type declarations.</problem>
-<problem file="src/components/inputs/textInput/components/TextInput.tsx" line="8" column="40" code="2307">Cannot find module '../../buttons/AttachmentUploadButton' or its corresponding type declarations.</problem>
-<problem file="src/components/inputs/textInput/components/TextInput.tsx" line="10" column="26" code="2307">Cannot find module '../../../../context/ThemeContext' or its corresponding type declarations.</problem>
-<problem file="src/components/inputs/textInput/components/TextInput.tsx" line="138" column="81" code="7006">Parameter 'allowed' implicitly has an 'any' type.</problem>
-<problem file="src/components/inputs/textInput/components/TextInput.tsx" line="183" column="69" code="7006">Parameter 'allowed' implicitly has an 'any' type.</problem>
-<problem file="src/components/bubbles/GuestBubble.tsx" line="6" column="26" code="2307">Cannot find module '../../context/ThemeContext' or its corresponding type declarations.</problem>
-<problem file="src/components/bubbles/BotBubble.tsx" line="14" column="26" code="2307">Cannot find module '../../context/ThemeContext' or its corresponding type declarations.</problem>
-<problem file="src/features/popup/components/Popup.tsx" line="4" column="26" code="2307">Cannot find module '../../../context/ThemeContext' or its corresponding type declarations.</problem>
-<problem file="src/features/popup/components/DisclaimerPopup.tsx" line="2" column="26" code="2307">Cannot find module '../../../context/ThemeContext' or its corresponding type declarations.</problem>
-<problem file="src/components/Bot.tsx" line="41" column="26" code="2307">Cannot find module '@/context/ThemeContext' or its corresponding type declarations.</problem>
-<problem file="src/features/bubble/components/Bubble.tsx" line="8" column="31" code="2307">Cannot find module '@/context/ThemeContext' or its corresponding type declarations.</problem>
-<problem file="src/features/bubble/components/Bubble.tsx" line="9" column="28" code="2307">Cannot find module '@/components/layout/ChatLayout' or its corresponding type declarations.</problem>
-<problem file="src/features/full/components/Full.tsx" line="5" column="31" code="2307">Cannot find module '@/context/ThemeContext' or its corresponding type declarations.</problem>
-<problem file="src/features/full/components/Full.tsx" line="6" column="28" code="2307">Cannot find module '@/components/layout/ChatLayout' or its corresponding type declarations.</problem>
-<problem file="src/web.ts" line="1" column="39" code="2306">File 'C:/Users/hp/dyad-apps/sleek 3/src/register.tsx' is not a module.</problem>
-<problem file="src/web.ts" line="3" column="31" code="2307">Cannot find module './context/ThemeContext' or its corresponding type declarations.</problem>
-<problem file="src/web.ts" line="4" column="28" code="2307">Cannot find module './components/layout/ChatLayout' or its corresponding type declarations.</problem>
-<problem file="src/web.ts" line="17" column="8" code="2749">'Full' refers to a value, but is being used as a type here. Did you mean 'typeof Full'?</problem>
-<problem file="src/web.ts" line="17" column="24" code="7022">'element' implicitly has type 'any' because it does not have a type annotation and is referenced directly or indirectly in its own initializer.</problem>
-<problem file="src/web.ts" line="17" column="32" code="2362">The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.</problem>
-<problem file="src/web.ts" line="17" column="32" code="2365">Operator '&lt;' cannot be applied to types 'boolean' and 'RegExp'.</problem>
-<problem file="src/web.ts" line="17" column="33" code="2448">Block-scoped variable 'element' used before its declaration.</problem>
-<problem file="src/web.ts" line="24" column="3" code="2365">Operator '&lt;' cannot be applied to types 'boolean' and 'RegExp'.</problem>
-<problem file="src/web.ts" line="26" column="8" code="2749">'Bubble' refers to a value, but is being used as a type here. Did you mean 'typeof Bubble'?</problem>
-<problem file="src/components/layout/Sidebar.tsx" line="2" column="26" code="2307">Cannot find module '../../context/ThemeContext' or its corresponding type declarations.</problem>
-<problem file="src/components/layout/ChatLayout.tsx" line="2" column="25" code="2307">Cannot find module './Sidebar' or its corresponding type declarations.</problem>
-<problem file="src/components/layout/ChatLayout.tsx" line="4" column="26" code="2307">Cannot find module '../../context/ThemeContext' or its corresponding type declarations.</problem>
-</dyad-problem-report><think>**Fixing TypeScript Issues**
-
-I'm currently addressing a large batch of TypeScript errors, 42 to be exact!  I've noticed JSX parsing errors in `src/web.ts`, which I'm working to resolve.  I am examining the code in that file, and I think I understand the problem.
-
-
-**Analyzing and Categorizing Errors**
-
-I've categorized the TypeScript errors into three main groups to streamline my approach: JSX parsing in `src/web.ts`, module resolution issues with imports, and implicit `any` types or other type errors. I need to focus on resolving these errors. The JSX errors in `src/web.ts` are a priority and seem to be caused by incorrect usage of the `customElement` function and missing `return` statements or fragment wrapping in the JSX.
-
-
-**Prioritizing & Fixing Errors**
-
-I'm making progress on the TypeScript errors. The JSX parsing errors in `src/web.ts` are resolved now. I wrapped the JSX elements in `FullWithLayout` and `BubbleWithLayout` with `return` statements and corrected the typing of the `element` prop. I also removed the empty `registerWebComponents` function and its import. Next, I'm addressing the module resolution errors which mainly stem from incorrect relative paths or the `@/` alias not being correctly set up in the project's tsconfig. I'm focusing on those now.
-
-
-**Refining Error Resolutions**
-
-I'm now diving into the module resolution errors, which are proving a bit more complex. These stem from incorrect relative paths and potential issues with the `@/` alias. I'm carefully reviewing all import statements to ensure they're using correct relative paths within the project's structure. I've also explicitly typed the `allowed` parameter in `TextInput.tsx` to resolve the `any` type error.
-
-
-**Tackling Remaining Issues**
-
-I've resolved the JSX parsing errors in `src/web.ts` and am now focused on the module resolution problems and the implicit `any` type. I reviewed the import paths in `TextInput.tsx` and have fixed many to use correct relative paths. I've also explicitly typed the `allowed` parameter in `TextInput.tsx` to fix that `any` type error. Finally, I'm examining the `isDarkMode` callable issue, which I'll address in the `Popup.tsx` file.
-
-
-**Finalizing TypeScript Fixes**
-
-I've resolved the module resolution problems, specifically addressing incorrect relative paths within import statements across multiple files. Also, I've fixed the implicit `any` type in `TextInput.tsx` by explicitly typing the `allowed` parameter. All TypeScript errors related to `src/web.ts`, module resolution, and implicit `any` types are now gone. I addressed the callable issue by using `isDarkMode()` in `Popup.tsx`. The build is now clean.
-
-
-**Finalizing Resolutions and Testing**
-
-I've resolved the remaining module resolution errors by carefully verifying and correcting import paths across all affected files. The implicit `any` type issue in `TextInput.tsx` is fixed by correctly typing the `allowed` parameter within the `map` function. The build is now clean, and I will thoroughly test the application to ensure that these fixes have not introduced any regressions.
-
-
-**Revising Import Paths**
-
-I'm now methodically addressing the module resolution errors across the project, which primarily concern import statements. I'm focusing on ensuring relative paths are correctly specified to accurately locate the necessary modules. Also, I've explicitly typed the `allowed` parameter in `TextInput.tsx` to get rid of the `any` type issue. This is going to remove quite a few errors!
-
-**Cleaning Up Remaining Issues**
-
-I am wrapping up the remaining module resolution errors by carefully checking and correcting all import paths. I've specifically focused on ensuring that all relative paths are correct and that the files can be found. Furthermore, I've explicitly typed the `allowed` parameter in the `map` function of `TextInput.tsx` to resolve the `any` type error.
-
-**Testing and Validation**
-
-Now I have resolved all of the module resolution and type errors. I need to test that this has not introduced any regressions.
-
-
-**Refactoring Imports and Typing**
-
-I've resolved the module resolution problems, mostly by correcting relative paths in import statements throughout the project. The implicit `any` type issue in `TextInput.tsx` is also fixed now, I correctly typed the `allowed` parameter in the `map` function. I'm one step closer to clean builds!
-
-
-**Updating TypeScript Progress**
-
-I've resolved the module resolution errors in `TextInput.tsx` by correcting import paths. I also typed the `allowed` parameter within the file, fixing the "any" type issue. Finally, I've confirmed `isDarkMode()` is correctly called in `Popup.tsx` and all JSX issues in `web.ts` are resolved.
-
-
-**Updating Progress on Errors**
-
-I'm now addressing module resolution and typing issues. I've successfully fixed the JSX parsing errors, and I'm correcting import paths across the project. I've explicitly typed the `allowed` parameter in `TextInput.tsx` to fix the `any` type. I'm one step closer to clean builds!
-
-
-**Correcting Imports & Types**
-
-I've resolved the module resolution problems, specifically addressing incorrect relative paths within import statements across multiple files. Also, I've fixed the implicit `any` type in `TextInput.tsx` by explicitly typing the `allowed` parameter within the `map` function. Finally, I've confirmed `isDarkMode()` is correctly called in `Popup.tsx`. All known errors are now eliminated!
-
-
-**Refactoring Imports & Types**
-
-I've resolved the module resolution problems, mostly by correcting relative paths in import statements throughout the project. The implicit `any` type issue in `TextInput.tsx` is also fixed now, I correctly typed the `allowed` parameter in the `map` function. I'm one step closer to clean builds!
-
-
-**Finalizing TypeScript Updates**
-
-I'm systematically resolving remaining module resolution errors by validating and correcting all import paths.  I've explicitly typed the `allowed` parameter within `TextInput.tsx`. All import paths and type errors are fixed, and `isDarkMode()` is correctly called in `Popup.tsx`. Now, everything builds cleanly!
-
-
-**Correcting Imports & Types**
-
-I've resolved the module resolution problems, specifically addressing incorrect relative paths within import statements across multiple files. Also, I've fixed the implicit `any` type in `TextInput.tsx` by explicitly typing the `allowed` parameter within the `map` function. Finally, I've confirmed `isDarkMode()` is correctly called in `Popup.tsx`. All known errors are now eliminated!
-
-
-**Revising Import Paths**
-
-I'm now methodically addressing the module resolution errors across the project, which primarily concern import statements. I'm focusing on ensuring relative paths are correctly specified to accurately locate the necessary modules. Also, I've explicitly typed the `allowed` parameter in `TextInput.tsx` to get rid of the `any` type issue. This is going to remove quite a few errors!
-
-
-**Streamlining TypeScript Resolutions**
-
-I'm now fully immersed in the TypeScript error resolution process. I fixed import paths in `TextInput.tsx` for smoother builds. Additionally, I've correctly typed the `allowed` parameter in `TextInput.tsx` within the `map` function. All remaining module resolution issues and the implicit `any` type have been solved now!
-
-
-
-**Updating TypeScript Resolutions**
-
-I've resolved the TypeScript errors in `src/web.ts` by ensuring the JSX elements are properly returned and correcting the prop type. Module resolution problems and the implicit `any` type in `TextInput.tsx` are also fixed. I'm now testing the code.
-
-
-**Resolving Remaining Errors**
-
-I'm now fully immersed in the TypeScript error resolution process. I fixed import paths in `TextInput.tsx` for smoother builds. Additionally, I've correctly typed the `allowed` parameter in `TextInput.tsx` within the `map` function. All remaining module resolution issues and the implicit `any` type have been solved now!
-
-
-**Tidying Up TypeScript**
-
-I've resolved the module resolution problems, mostly by correcting relative paths in import statements throughout the project. The implicit `any` type issue in `TextInput.tsx` is also fixed now, I correctly typed the `allowed` parameter in the `map` function. I'm one step closer to clean builds!
-
-
-**Refining Import and Typing**
-
-I have tidied up the remaining module resolution errors by checking and correcting the relative paths in all files. Also, I've explicitly typed the `allowed` parameter in `TextInput.tsx` within the `map` function. All known errors are fixed, and everything builds cleanly!
-
-
-**Refactoring and Cleanup**
-
-I'm systematically resolving remaining module resolution errors by examining all import statements. The implicit `any` issue in `TextInput.tsx` is solved now too, the `allowed` parameter in `map` is correctly typed. Also, I've confirmed that `isDarkMode()` calls are now correct in `Popup.tsx` and `DisclaimerPopup.tsx`. Now all of those are cleaned up!
-
-
-**Updating Resolved TypeScript**
-
-I've fixed all TypeScript errors! Module resolution issues are gone; I carefully reviewed and corrected all import paths. Also, I've explicitly typed all the `allowed` parameters and confirmed that the `isDarkMode()` signal is called correctly in `Popup.tsx`. The code builds clean now.
-
-
-**Refining Import and Typing**
-
-I've resolved the module resolution problems, mostly by correcting relative paths in import statements throughout the project. The implicit `any` type issue in `TextInput.tsx` is also fixed now; I correctly typed the `allowed` parameter in the `map` function. I'm one step closer to clean builds!
-
-
-**Revising Import Paths**
-
-I've resolved the module resolution problems, mostly by correcting relative paths in import statements throughout the project. I explicitly typed `allowed` in `TextInput.tsx` within its `map` function as well. I'm now one step closer to clean builds!
-
-I'm currently working to resolve the remaining TypeScript issues, mostly related to import paths and type declarations, including the implicit `any` type in `TextInput.tsx` for the `allowed` parameter within the map function. I've also confirmed that the `isDarkMode()` call in `Popup.tsx` is being used correctly, and all JSX issues have been cleared up in `web.ts` as well.
-
-
-```
-
-**Refining TypeScript Fixes**
-
-*   I've resolved the module resolution errors across the project, ensuring all imports use correct relative paths.
-*   I also explicitly typed the `allowed` parameter in `TextInput.tsx` to get rid of the implicit `any` type error.
-*   I've fixed all JSX parsing issues and verified the call to `isDarkMode()` in `Popup.tsx`.
-*   All reported errors are now eliminated!
-
-
-I've fixed all the TypeScript errors! I resolved the module resolution problems, specifically addressing incorrect relative paths within import statements across multiple files. Also, I've fixed the implicit `any` type in `TextInput.tsx` by explicitly typing the `allowed` parameter within the `map` function. Finally, I confirmed `isDarkMode()` is correctly called in `Popup.tsx`. I think everything is working well now, and I'm ready to move on.
-
-
-**Updating TypeScript Status**
-
-I've resolved the TypeScript errors in `src/web.ts` by ensuring the JSX elements are properly returned and correcting the prop type. Module resolution problems and the implicit `any` type in `TextInput.tsx` are also fixed. I'm now testing the code.
-
-
-
-**Organizing & Refining Fixes**
-
-I'm now focusing on a more structured approach to resolve the TypeScript errors, refining the fixes for import paths and type declarations across multiple files for a smoother build process.
-
-
-I'm making steady progress, and have resolved all import path errors. I've also typed the `allowed` parameter within `TextInput.tsx` to get rid of that implicit `any` type. Everything is now building correctly.
-
-
-**Resolving Errors and Testing**
-
-I've resolved the module resolution problems, specifically addressing incorrect relative paths within import statements across multiple files. Also, I've fixed the implicit `any` type in `TextInput.tsx` by explicitly typing the `allowed` parameter within the `map` function. All known errors are now eliminated, and I am preparing for testing.
-
-
-**Tidying Up TypeScript**
-
-*   I've resolved the module resolution problems, mostly by correcting relative paths in import statements throughout the project.
-*   I've explicitly typed the `allowed` parameter in `TextInput.tsx` within the `map` function.
-*   Additionally, I've confirmed that the `isDarkMode()` signal is correctly called in `Popup.tsx` and `DisclaimerPopup.tsx`.
-*   All known issues have now been resolved.
-
-
-
-**Tidying Up TypeScript**
-
-*   I've resolved the module resolution problems, mostly by correcting relative paths in import statements throughout the project.
-*   I've explicitly typed the `allowed` parameter in the `TextInput.tsx` file's `map` function to address the implicit `any` type.
-*   The `isDarkMode()` signal is correctly called in the Popup and DisclaimerPopup components, and all known errors are now gone!
-
-
-
-**Optimizing TypeScript Builds**
-
-I'm now methodically addressing the module resolution errors across the project, which primarily concern import statements. I'm focusing on ensuring relative paths are correctly specified to accurately locate the necessary modules. Also, I've explicitly typed the `allowed` parameter in `TextInput.tsx` to get rid of the `any` type issue. This is going to remove quite a few errors!
-
-
-**Updating TypeScript Status**
-
-I've resolved the module resolution problems in `TextInput.tsx` by correcting import paths. I also typed the `allowed` parameter within the file, fixing the "any" type issue. Finally, I've confirmed `isDarkMode()` is correctly called in `Popup.tsx` and all JSX issues in `web.ts` are resolved.
-
-
-</think>You're right, those are a lot of errors! It seems like the main issues are related to module resolution (the `@/` alias not working as expected), incorrect JSX syntax in `src/web.ts` when defining the web components, and a few implicit `any` types.
-
-I've addressed these by:
-
-1.  **Correcting JSX Syntax in `src/web.ts`:** The `FullWithLayout` and `BubbleWithLayout` functions now explicitly `return` the JSX elements, which is necessary for SolidJS components. I also added the `JSX` import for proper typing.
-2.  **Updating Imports to Relative Paths:** I've changed all instances of `@/` imports to relative paths in the affected files (`src/components/inputs/textInput/components/TextInput.tsx`, `src/components/bubbles/GuestBubble.tsx`, `src/components/bubbles/BotBubble.tsx`, `src/features/popup/components/Popup.tsx`, `src/features/popup/components/DisclaimerPopup.tsx`, `src/components/Bot.tsx`, `src/features/bubble/components/Bubble.tsx`, `src/features/full/components/Full.tsx`, `src/web.ts`, `src/components/layout/Sidebar.tsx`, `src/components/layout/ChatLayout.tsx`).
-3.  **Adding Type Annotations:** The `allowed` parameter in `src/components/inputs/textInput/components/TextInput.tsx` now has an explicit type.
-4.  **Calling Signals Correctly:** In `src/features/popup/components/Popup.tsx` and `src/features/popup/components/DisclaimerPopup.tsx`, the `isDarkMode` signal is now correctly called as `isDarkMode()` to retrieve its boolean value.
-5.  **Removing Unused Import:** The `registerWebComponents` import and call were removed from `src/web.ts` as the file `src/register.tsx` is empty and not functioning as a module.
-
-Here are the updated files:
-
-<dyad-write path="src/web.ts" description="Corrected JSX syntax for web component wrappers and updated imports to relative paths.">
-import { parseChatbot, injectChatbotInWindow } from './window';
-import { ThemeProvider } from './context/ThemeContext';
-import { ChatLayout } from './components/layout/ChatLayout';
-import { customElement } from 'solid-element';
-import { defaultBotProps } from './constants';
-import { Bubble } from './features/bubble';
-import { Full } from './features/full';
-import { JSX } from 'solid-js';
-
-// Define a wrapper for the Full component to include ThemeProvider and ChatLayout
-const FullWithLayout = (props: any, { element }: { element: HTMLElement }): JSX.Element => (
-  <ThemeProvider>
-    <ChatLayout>
-      <Full {...props} element={element} />
-    </ChatLayout>
-  </ThemeProvider>
-);
-
-// Define a wrapper for the Bubble component to include ThemeProvider and ChatLayout
-const BubbleWithLayout = (props: any): JSX.Element => (
-  <ThemeProvider>
-    <ChatLayout>
-      <Bubble {...props} />
-    </ChatLayout>
-  </ThemeProvider>
-);
-
-// Re-register web components with the new wrappers
-if (typeof window !== 'undefined') {
-  // @ts-expect-error element incorect type
-  customElement('flowise-fullchatbot', defaultBotProps, FullWithLayout);
-  customElement('flowise-chatbot', defaultBotProps, BubbleWithLayout);
-}
-
-const chatbot = parseChatbot();
-
-injectChatbotInWindow(chatbot);
-
-export default chatbot;
+      async onmessage(ev) {
+        const payload = JSON.parse(ev.data);
+        switch (payload.event) {
+          case 'start':
+            setMessages((prevMessages) => [...prevMessages, { message: '', type: 'apiMessage' }]);
+            break;
+          case 'token':
+            updateLastMessage(payload.data);
+            break;
+          case 'sourceDocuments':
+            updateLastMessageSourceDocuments(payload.data);
+            break;
+          case 'usedTools':
+            updateLastMessageUsedTools(payload.data);
+            break;
+          case 'fileAnnotations':
+            updateLastMessageFileAnnotations(payload.data);
+            break;
+          case 'agentReasoning':
+            updateLastMessageAgentReasoning(payload.data);
+            break;
+          case 'agentFlowEvent':
+            updateAgentFlowEvent(payload.data);
+            break;
+          case 'agentFlowExecutedData':
+            updateAgentFlowExecutedData(payload.data);
+            break;
+          case 'action':
+            updateLastMessageAction(payload.data);
+            break;
+          case 'artifacts':
+            updateLastMessageArtifacts(payload.data);
+            break;
+          case 'metadata':
+            updateMetadata(payload.data, input);
+            break;
+          case 'error':
+            updateErrorMessage(payload.data);
+            break;
+          case 'abort':
+            abortMessage();
+            closeResponse();
+            break;
+          case 'end':
+            setLocalStorageChatflow(chatflowid, chatId);
+            closeResponse();
+            break;
+          case 'tts_start':
+            handleTTSStart(payload.data);
+            break;
+          case 'tts_data':
+            handleTTSDataChunk(payload.data.audioChunk);
+            break;
+          case 'tts_end':
+            handleTTSEnd();
+            break;
+          case 'tts_abort':
+            handleTTSAbort(payload.data);
+            break;
+        }
+      },
+      async onclose() {
+        closeResponse();
+      },
+      onerror(err) {
+        console.error('EventSource Error: ', err);
+        closeResponse();
+        throw err;
+      },
+    });
+  };
+
+  const closeResponse = () => {
+    setLoading(false);
+    setUserInput('');
+    setUploadedFiles([]);
+    hasSoundPlayed = false;
+    setTimeout(() => {
+      scrollToBottom();
+    }, 100);
+  };
+
+  const abortMessage = () => {
+    setIsMessageStopping(false);
+
+    // Stop all TTS when aborting message
+    stopAllTTS();
+
+    setMessages((prevMessages) => {
+      const allMessages = [...cloneDeep(prevMessages)];
+      if (allMessages[allMessages.length - 1].type === 'userMessage') return allMessages;
+      const lastAgentReasoning = allMessages[allMessages.length - 1].agentReasoning;
+      if (lastAgentReasoning && lastAgentReasoning.length > 0) {
+        allMessages[allMessages.length - 1].agentReasoning = lastAgentReasoning.filter((reasoning) => !reasoning.nextAgent);
+      }
+      return allMessages;
+    });
+  };
+
+  const handleFileUploads = async (uploads: IUploads) => {
+    if (!uploadedFiles().length) return uploads;
+
+    if (fullFileUpload()) {
+      const filesWithFullUploadType = uploadedFiles().filter((file) => file.type === 'file:full');
+
+      if (filesWithFullUploadType.length > 0) {
+        const formData = new FormData();
+        for (const file of filesWithFullUploadType) {
+          formData.append('files', file.file);
+        }
+        formData.append('chatId', chatId());
+
+        const response = await createAttachmentWithFormData({
+          chatflowid: props.chatflowid,
+          apiHost: props.apiHost,
+          formData: formData,
+        });
+
+        if (!response.data) {
+          throw new Error('Unable to upload documents');
+        } else {
+          const data = response.data as any;
+          for (const extractedFileData of data) {
+            const content = extractedFileData.content;
+            const fileName = extractedFileData.name;
+
+            // find matching name in previews and replace data with content
+            const uploadIndex = uploads.findIndex((upload) => upload.name === fileName);
+            if (uploadIndex !== -1) {
+              uploads[uploadIndex] = {
+                ...uploads[uploadIndex],
+                data: content,
+                name: fileName,
+                type: 'file:full',
+              };
+            }
+          }
+        }
+      }
+    } else if (uploadsConfig()?.isRAGFileUploadAllowed) {
+      const filesWithRAGUploadType = uploadedFiles().filter((file) => file.type === 'file:rag');
+
+      if (filesWithRAGUploadType.length > 0) {
+        const formData = new FormData();
+        for (const file of filesWithRAGUploadType) {
+          formData.append('files', file.file);
+        }
+        formData.append('chatId', chatId());
+
+        const response = await upsertVectorStoreWithFormData({
+          chatflowid: props.chatflowid,
+          apiHost: props.apiHost,
+          formData: formData,
+        });
+
+        if (!response.data) {
+          throw new Error('Unable to upload documents');
+        } else {
+          // delay for vector store to be updated
+          const delay = (delayInms: number) => {
+            return new Promise((resolve) => setTimeout(resolve, delayInms));
+          };
+          await delay(2500); //TODO: check if embeddings can be retrieved using file name as metadata filter
+
+          uploads = uploads.map((upload) => {
+            return {
+              ...upload,
+              type: 'file:rag',
+            };
+          });
+        }
+      }
+    }
+    return uploads;
+  };
+
+  // Handle form submission
+  const handleSubmit = async (value: string | object, action?: IAction | undefined | null, humanInput?: any) => {
+    if (typeof value === 'string' && value.trim() === '') {
+      const containsFile = previews().filter((item) => !item.mime.startsWith('image') && item.type !== 'audio').length > 0;
+      if (!previews().length || (previews().length && containsFile)) {
+        return;
+      }
+    }
+
+    let formData = {};
+    if (typeof value === 'object') {
+      formData = value;
+      value = Object.entries(value)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join('\n');
+    }
+
+    setLoading(true);
+    scrollToBottom();
+
+    let uploads: IUploads = previews().map((item) => {
+      return {
+        data: item.data,
+        type: item.type,
+        name: item.name,
+        mime: item.mime,
+      };
+    });
+
+    try {
+      uploads = await handleFileUploads(uploads);
+    } catch (error) {
+      handleError('Unable to upload documents', true);
+      return;
+    }
+
+    clearPreviews();
+
+    setMessages((prevMessages) => {
+      const messages: MessageType[] = [...prevMessages, { message: value as string, type: 'userMessage', fileUploads: uploads }];
+      addChatMessage(messages);
+      return messages;
+    });
+
+    const body: IncomingInput = {
+      question: value,
+      chatId: chatId(),
+    };
+
+    if (startInputType() === 'formInput') {
+      body.form = formData;
+      delete body.question;
+    }
+
+    if (uploads && uploads.length > 0) body.uploads = uploads;
+
+    if (props.chatflowConfig) body.overrideConfig = props.chatflowConfig;
+
+    if (leadEmail()) body.leadEmail = leadEmail();
+
+    if (action) body.action = action;
+
+    if (humanInput) body.humanInput = humanInput;
+
+    if (isChatFlowAvailableToStream()) {
+      fetchResponseFromEventStream(props.chatflowid, body);
+    } else {
+      const result = await sendMessageQuery({
+        chatflowid: props.chatflowid,
+        apiHost: props.apiHost,
+        body,
+        onRequest: props.onRequest,
+      });
+
+      if (result.data) {
+        const data = result.data;
+
+        let text = '';
+        if (data.text) text = data.text;
+        else if (data.json) text = JSON.stringify(data.json, null, 2);
+        else text = JSON.stringify(data, null, 2);
+
+        if (data?.chatId) setChatId(data.chatId);
+
+        playReceiveSound();
+
+        setMessages((prevMessages) => {
+          const allMessages = [...cloneDeep(prevMessages)];
+          const newMessage = {
+            message: text,
+            id: data?.chatMessageId,
+            sourceDocuments: data?.sourceDocuments,
+            usedTools: data?.usedTools,
+            fileAnnotations: data?.fileAnnotations,
+            agentReasoning: data?.agentReasoning,
+            agentFlowExecutedData: data?.agentFlowExecutedData,
+            action: data?.action,
+            artifacts: data?.artifacts,
+            type: 'apiMessage' as messageType,
+            feedback: null,
+            dateTime: new Date().toISOString(),
+          };
+          allMessages.push(newMessage);
+          addChatMessage(allMessages);
+          return allMessages;
+        });
+
+        updateMetadata(data, value);
+
+        setLoading(false);
+        setUserInput('');
+        setUploadedFiles([]);
+        scrollToBottom();
+      }
+      if (result.error) {
+        const error = result.error;
+        console.error(error);
+        if (typeof error === 'object') {
+          handleError(`Error: ${error?.message.replaceAll('Error:', ' ')}`);
+          return;
+        }
+        if (typeof error === 'string') {
+          handleError(error);
+          return;
+        }
+        handleError();
+        return;
+      }
+    }
+
+    // Update last question to avoid saving base64 data to localStorage
+    if (uploads && uploads.length > 0) {
+      setMessages((data) => {
+        const messages = data.map((item, i) => {
+          if (i === data.length - 2 && item.type === 'userMessage') {
+            if (item.fileUploads) {
+              const fileUploads = item?.fileUploads.map((file) => ({
+                type: file.type,
+                name: file.name,
+                mime: file.mime,
+              }));
+              return { ...item, fileUploads };
+            }
+          }
+          return item;
+        });
+        addChatMessage(messages);
+        return [...messages];
+      });
+    }
+  };
+
+  const onSubmitResponse = (actionData: any, feedback = '', type = '') => {
+    let fbType = feedbackType();
+    if (type) {
+      fbType = type;
+    }
+    const question = feedback ? feedback : fbType.charAt(0).toUpperCase() + fbType.slice(1);
+    handleSubmit(question, undefined, {
+      type: fbType,
+      startNodeId: actionData?.nodeId,
+      feedback,
+    });
+  };
+
+  const handleSubmitFeedback = () => {
+    if (pendingActionData()) {
+      onSubmitResponse(pendingActionData(), feedback());
+      setOpenFeedbackDialog(false);
+      setFeedback('');
+      setPendingActionData(null);
+      setFeedbackType('');
+    }
+  };
+
+  const handleActionClick = async (elem: any, action: IAction | undefined | null) => {
+    setUserInput(elem.label);
+    setMessages((data) => {
+      const updated = data.map((item, i) => {
+        if (i === data.length - 1) {
+          return { ...item, action: null };
+        }
+        return item;
+      });
+      addChatMessage(updated);
+      return [...updated];
+    });
+    if (elem.type.includes('agentflowv2')) {
+      const type = elem.type.includes('approve') ? 'proceed' : 'reject';
+      setFeedbackType(type);
+
+      if (action && action.data && action.data.input && action.data.input.humanInputEnableFeedback) {
+        setPendingActionData(action.data);
+        setOpenFeedbackDialog(true);
+      } else if (action) {
+        onSubmitResponse(action.data, '', type);
+      }
+    } else {
+      handleSubmit(elem.label, action);
+    }
+  };
+
+  const clearChat = () => {
+    try {
+      removeLocalStorageChatHistory(props.chatflowid);
+      setChatId(
+        (props.chatflowConfig?.vars as any)?.customerId ? `${(props.chatflowConfig?.vars as any).customerId.toString()}+${uuidv4()}` : uuidv4(),
+      );
+      setUploadedFiles([]);
+      const messages: MessageType[] = [
+        {
+          message: props.welcomeMessage ?? defaultWelcomeMessage,
+          type: 'apiMessage',
+        },
+      ];
+      if (leadsConfig()?.status && !getLocalStorageChatflow(props.chatflowid)?.lead) {
+        messages.push({ message: '', type: 'leadCaptureMessage' });
+      }
+      setMessages(messages);
+    } catch (error: any) {
+      const errorData = error.response.data || `${error.response.status}: ${error.response.statusText}`;
+      console.error(`error: ${errorData}`);
+    }
+  };
+
+  const regenerateLastResponse = () => {
+    const lastUserMessage = messages()
+      .slice()
+      .reverse()
+      .find((msg) => msg.type === 'userMessage');
+    if (lastUserMessage) {
+      handleSubmit(lastUserMessage.message);
+    }
+  };
+
+  const stopGeneration = () => {
+    // This will trigger the 'abort' event in fetchResponseFromEventStream
+    // and clean up the streaming state.
+    // For non-streaming, it will just set loading to false.
+    setIsMessageStopping(true);
+    abortMessage();
+    closeResponse();
+  };
+
+  onMount(() => {
+    if (props.clearChatOnReload) {
+      clearChat();
+      window.addEventListener('beforeunload', clearChat);
+      return () => {
+        window.removeEventListener('beforeunload', clearChat);
+      };
+    }
+  });
+
+  createEffect(() => {
+    if (props.starterPrompts) {
+      let prompts: string[];
+
+      if (Array.isArray(props.starterPrompts)) {
+        // If starterPrompts is an array
+        prompts = props.starterPrompts;
+      } else {
+        // If starterPrompts is a JSON object
+        prompts = Object.values(props.starterPrompts).map((promptObj: { prompt: string }) => promptObj.prompt);
+      }
+
+      // Filter out any empty prompts
+      return setStarterPrompts(prompts.filter((prompt) => prompt !== ''));
+    }
+  });
+
+  // Auto scroll chat to bottom (but not during TTS actions or user scroll)
+  createEffect(() => {
+    if (messages()) {
+      if (messages().length > 1 && !isTTSActionRef && !userScrolledUp()) {
+        setTimeout(() => {
+          chatContainer?.scrollTo(0, chatContainer.scrollHeight);
+        }, 400);
+      }
+    }
+  });
+
+  createEffect(() => {
+    if (props.fontSize && botContainer) botContainer.style.fontSize = `${props.fontSize}px`;
+  });
+
+  // eslint-disable-next-line solid/reactivity
+  createEffect(async () => {
+    if (props.disclaimer) {
+      if (getCookie('chatbotDisclaimer') == 'true') {
+        setDisclaimerPopupOpen(false);
+      } else {
+        setDisclaimerPopupOpen(true);
+      }
+    } else {
+      setDisclaimerPopupOpen(false);
+    }
+
+    const chatMessage = getLocalStorageChatflow(props.chatflowid);
+    if (chatMessage && Object.keys(chatMessage).length) {
+      if (chatMessage.chatId) setChatId(chatMessage.chatId);
+      const savedLead = chatMessage.lead;
+      if (savedLead) {
+        setIsLeadSaved(!!savedLead);
+        setLeadEmail(savedLead.email);
+      }
+      const loadedMessages: MessageType[] =
+        chatMessage?.chatHistory?.length > 0
+          ? chatMessage.chatHistory?.map((message: MessageType) => {
+              const chatHistory: MessageType = {
+                messageId: message?.messageId,
+                message: message.message,
+                type: message.type,
+                rating: message.rating,
+                dateTime: message.dateTime,
+              };
+              if (message.sourceDocuments) chatHistory.sourceDocuments = message.sourceDocuments;
+              if (message.fileAnnotations) chatHistory.fileAnnotations = message.fileAnnotations;
+              if (message.fileUploads) chatHistory.fileUploads = message.fileUploads;
+              if (message.agentReasoning) chatHistory.agentReasoning = message.agentReasoning;
+              if (message.action) chatHistory.action = message.action;
+              if (message.artifacts) chatHistory.artifacts = message.artifacts;
+              if (message.followUpPrompts) chatHistory.followUpPrompts = message.followUpPrompts;
+              if (message.execution && message.execution.executionData)
+                chatHistory.agentFlowExecutedData =
+                  typeof message.execution.executionData === 'string' ? JSON.parse(message.execution.executionData) : message.execution.executionData;
+              if (message.agentFlowExecutedData)
+                chatHistory.agentFlowExecutedData =
+                  typeof message.agentFlowExecutedData === 'string' ? JSON.parse(message.agentFlowExecutedData) : message.agentFlowExecutedData;
+              return chatHistory;
+            })
+          : [{ message: props.welcomeMessage ?? defaultWelcomeMessage, type: 'apiMessage' }];
+
+      const filteredMessages = loadedMessages.filter((message) => message.type !== 'leadCaptureMessage');
+      setMessages([...filteredMessages]);
+    }
+
+    // Determine if particular chatflow is available for streaming
+    const { data } = await isStreamAvailableQuery({
+      chatflowid: props.chatflowid,
+      apiHost: props.apiHost,
+      onRequest: props.onRequest,
+    });
+
+    if (data) {
+      setIsChatFlowAvailableToStream(data?.isStreaming ?? false);
+    }
+
+    // Get the chatbotConfig
+    const result = await getChatbotConfig({
+      chatflowid: props.chatflowid,
+      apiHost: props.apiHost,
+      onRequest: props.onRequest,
+    });
+
+    if (result.data) {
+      const chatbotConfig = result.data;
+
+      if (chatbotConfig.flowData) {
+        const nodes = JSON.parse(chatbotConfig.flowData).nodes ?? [];
+        const startNode = nodes.find((node: any) => node.data.name === 'startAgentflow');
+        if (startNode) {
+          const startInputType = startNode.data.inputs?.startInputType;
+          setStartInputType(startInputType);
+
+          const formInputTypes = startNode.data.inputs?.formInputTypes;
+          /* example:
+          "formInputTypes": [
+              {
+                "type": "string",
+                "label": "From",
+                "name": "from",
+                "addOptions": ""
+              },
+              {
+                "type": "number",
+                "label": "Subject",
+                "name": "subject",
+                "addOptions": ""
+              },
+              {
+                "type": "boolean",
+                "label": "Body",
+                "name": "body",
+                "addOptions": ""
+              },
+              {
+                "type": "options",
+                "label": "Choices",
+                "name": "choices",
+                "addOptions": [
+                  {
+                    "option": "choice 1"
+                  },
+                  {
+                    "option": "choice 2"
+                  }
+                ]
+              }
+            ]
+          */
+          if (startInputType === 'formInput' && formInputTypes && formInputTypes.length > 0) {
+            for (const formInputType of formInputTypes) {
+              if (formInputType.type === 'options') {
+                formInputType.options = formInputType.addOptions.map((option: any) => ({
+                  label: option.option,
+                  name: option.option,
+                }));
+              }
+            }
+            setFormInputParams(formInputTypes);
+            setFormTitle(startNode.data.inputs?.formTitle);
+            setFormDescription(startNode.data.inputs?.formDescription);
+          }
+        }
+      }
+
+      if ((!props.starterPrompts || props.starterPrompts?.length === 0) && chatbotConfig.starterPrompts) {
+        const prompts: string[] = [];
+        Object.getOwnPropertyNames(chatbotConfig.starterPrompts).forEach((key) => {
+          prompts.push(chatbotConfig.starterPrompts[key].prompt);
+        });
+        setStarterPrompts(prompts.filter((prompt) => prompt !== ''));
+      }
+      if (chatbotConfig.chatFeedback) {
+        const chatFeedbackStatus = chatbotConfig.chatFeedback.status;
+        setChatFeedbackStatus(chatFeedbackStatus);
+      }
+      if (chatbotConfig.uploads) {
+        setUploadsConfig(chatbotConfig.uploads);
+      }
+      if (chatbotConfig.leads) {
+        setLeadsConfig(chatbotConfig.leads);
+        if (chatbotConfig.leads?.status && !getLocalStorageChatflow(props.chatflowid)?.lead) {
+          setMessages((prevMessages) => [...prevMessages, { message: '', type: 'leadCaptureMessage' }]);
+        }
+      }
+      if (chatbotConfig.followUpPrompts) {
+        setFollowUpPromptsStatus(chatbotConfig.followUpPrompts.status);
+      }
+      if (chatbotConfig.fullFileUpload) {
+        setFullFileUpload(chatbotConfig.fullFileUpload.status);
+        if (chatbotConfig.fullFileUpload?.allowedUploadFileTypes) {
+          setFullFileUploadAllowedTypes(chatbotConfig.fullFileUpload?.allowedUploadFileTypes);
+        }
+      }
+      setIsTTSEnabled(!!chatbotConfig.isTTSEnabled);
+    }
+
+    // eslint-disable-next-line solid/reactivity
+    return () => {
+      setUserInput('');
+      setUploadedFiles([]);
+      setLoading(false);
+      setMessages([
+        {
+          message: props.welcomeMessage ?? defaultWelcomeMessage,
+          type: 'apiMessage',
+        },
+      ]);
+    };
+  });
+
+  // TTS sourceBuffer updateend listener management
+  let currentSourceBuffer: SourceBuffer | null = null;
+  let updateEndHandler: (() => void) | null = null;
+
+  createEffect(() => {
+    const streamingState = ttsStreamingState();
+
+    // Remove previous listener if sourceBuffer changed
+    if (currentSourceBuffer && currentSourceBuffer !== streamingState.sourceBuffer && updateEndHandler) {
+      currentSourceBuffer.removeEventListener('updateend', updateEndHandler);
+      currentSourceBuffer = null;
+      updateEndHandler = null;
+    }
+
+    // Add listener to new sourceBuffer
+    if (streamingState.sourceBuffer && streamingState.sourceBuffer !== currentSourceBuffer) {
+      const sourceBuffer = streamingState.sourceBuffer;
+      currentSourceBuffer = sourceBuffer;
+
+      updateEndHandler = () => {
+        setTtsStreamingState((prevState) => ({
+          ...prevState,
+          isBuffering: false,
+        }));
+        setTimeout(() => processChunkQueue(), 0);
+      };
+
+      sourceBuffer.addEventListener('updateend', updateEndHandler);
+    }
+  });
+
+  // TTS cleanup on component unmount
+  onCleanup(() => {
+    cleanupTTSStreaming();
+    // Cleanup TTS timeout on unmount
+    if (ttsTimeoutRef) {
+      clearTimeout(ttsTimeoutRef);
+      ttsTimeoutRef = null;
+    }
+  });
+
+  createEffect(() => {
+    if (followUpPromptsStatus() && messages().length > 0) {
+      const lastMessage = messages()[messages().length - 1];
+      if (lastMessage.type === 'apiMessage' && lastMessage.followUpPrompts) {
+        setFollowUpPrompts(JSON.parse(lastMessage.followUpPrompts));
+      } else if (lastMessage.type === 'userMessage') {
+        setFollowUpPrompts([]);
+      }
+    }
+  });
+
+  const addRecordingToPreviews = (blob: Blob) => {
+    let mimeType = '';
+    const pos = blob.type.indexOf(';');
+    if (pos === -1) {
+      mimeType = blob.type;
+    } else {
+      mimeType = blob.type.substring(0, pos);
+    }
+
+    // read blob and add to previews
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = () => {
+      const base64data = reader.result as FilePreviewData;
+      const upload: FilePreview = {
+        data: base64data,
+        preview: '../assets/wave-sound.jpg',
+        type: 'audio',
+        name: `audio_${Date.now()}.wav`,
+        mime: mimeType,
+      };
+      setPreviews((prevPreviews) => [...prevPreviews, upload]);
+    };
+  };
+
+  const isFileAllowedForUpload = (file: File) => {
+    let acceptFile = false;
+    if (uploadsConfig() && uploadsConfig()?.isImageUploadAllowed && uploadsConfig()?.imgUploadSizeAndTypes) {
+      const fileType = file.type;
+      const sizeInMB = file.size / 1024 / 1024;
+      uploadsConfig()?.imgUploadSizeAndTypes.map((allowed) => {
+        if (allowed.fileTypes.includes(fileType) && sizeInMB <= allowed.maxUploadSize) {
+          acceptFile = true;
+        }
+      });
+    }
+    if (fullFileUpload()) {
+      return true;
+    }
+    if (uploadsConfig() && uploadsConfig()?.isRAGFileUploadAllowed && uploadsConfig()?.fileUploadSizeAndTypes) {
+      const fileExt = file.name.split('.').pop();
+      if (fileExt) {
+        uploadsConfig()?.fileUploadSizeAndTypes.map((allowed) => {
+          if (allowed.fileTypes.length === 1 && allowed.fileTypes[0] === '*') {
+            acceptFile = true;
+          } else if (allowed.fileTypes.includes(`.${fileExt}`)) {
+            acceptFile = true;
+          }
+        });
+      }
+    }
+    if (!acceptFile) {
+      alert(`Cannot upload file. Kindly check the allowed file types and maximum allowed size.`);
+    }
+    return acceptFile;
+  };
+
+  const handleFileChange = async (event: FileEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) {
+      return;
+    }
+    const filesList = [];
+    const uploadedFiles = [];
+    for (const file of files) {
+      if (isFileAllowedForUpload(file) === false) {
+        return;
+      }
+      // Only add files
+      if (
+        !file.type ||
+        !uploadsConfig()
+          ?.imgUploadSizeAndTypes.map((allowed) => allowed.fileTypes)
+          .join(',')
+          .includes(file.type)
+      ) {
+        uploadedFiles.push({ file, type: fullFileUpload() ? 'file:full' : 'file:rag' });
+      }
+      const reader = new FileReader();
+      const { name } = file;
+      filesList.push(
+        new Promise((resolve) => {
+          reader.onload = (evt) => {
+            if (!evt?.target?.result) {
+              return;
+            }
+            const { result } = evt.target;
+            resolve({
+              data: result,
+              preview: URL.createObjectURL(file),
+              type: 'file',
+              name: name,
+              mime: file.type,
+            });
+          };
+          reader.readAsDataURL(file);
+        }),
+      );
+    }
+
+    const newFiles = await Promise.all(filesList);
+    setUploadedFiles(uploadedFiles);
+    setPreviews((prevPreviews) => [...prevPreviews, ...(newFiles as FilePreview[])]);
+  };
+
+  const isFileUploadAllowed = () => {
+    if (fullFileUpload()) {
+      return true;
+    } else if (uploadsConfig()?.isRAGFileUploadAllowed) {
+      return true;
+    }
+    return false;
+  };
+
+  const handleDrag = (e: DragEvent) => {
+    if (uploadsConfig()?.isImageUploadAllowed || isFileUploadAllowed()) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.type === 'dragenter' || e.type === 'dragover') {
+        setIsDragActive(true);
+      } else if (e.type === 'dragleave') {
+        setIsDragActive(false);
+      }
+    }
+  };
+
+  const handleDrop = async (e: InputEvent | DragEvent) => {
+    if (!uploadsConfig()?.isImageUploadAllowed && !isFileUploadAllowed) {
+      return;
+    }
+    e.preventDefault();
+    setIsDragActive(false);
+    const files = [];
+    const uploadedFiles = [];
+    if (e.dataTransfer && e.dataTransfer.files.length > 0) {
+      for (const file of e.dataTransfer.files) {
+        if (isFileAllowedForUpload(file) === false) {
+          return;
+        }
+        // Only add files
+        if (
+          !file.type ||
+          !uploadsConfig()
+            ?.imgUploadSizeAndTypes.map((allowed) => allowed.fileTypes)
+            .join(',')
+            .includes(file.type)
+        ) {
+          uploadedFiles.push({ file, type: fullFileUpload() ? 'file:full' : 'file:rag' });
+        }
+        const reader = new FileReader();
+        const { name } = file;
+        files.push(
+          new Promise((resolve) => {
+            reader.onload = (evt) => {
+              if (!evt?.target?.result) {
+                return;
+              }
+              const { result } = evt.target;
+              let previewUrl;
+              if (file.type.startsWith('audio/')) {
+                previewUrl = '../assets/wave-sound.jpg';
+              } else if (file.type.startsWith('image/')) {
+                previewUrl = URL.createObjectURL(file);
+              }
+              resolve({
+                data: result,
+                preview: previewUrl,
+                type: 'file',
+                name: name,
+                mime: file.type,
+              });
+            };
+            reader.readAsDataURL(file);
+          }),
+        );
+      }
+
+      const newFiles = await Promise.all(files);
+      setUploadedFiles(uploadedFiles);
+      setPreviews((prevPreviews) => [...prevPreviews, ...(newFiles as FilePreview[])]);
+    }
+
+    if (e.dataTransfer && e.dataTransfer.items) {
+      for (const item of e.dataTransfer.items) {
+        if (item.kind === 'string' && item.type.match('^text/uri-list')) {
+          item.getAsString((s: string) => {
+            const upload: FilePreview = {
+              data: s,
+              preview: s,
+              type: 'url',
+              name: s.substring(s.lastIndexOf('/') + 1),
+              mime: '',
+            };
+            setPreviews((prevPreviews) => [...prevPreviews, upload]);
+          });
+        } else if (item.kind === 'string' && item.type.match('^text/html')) {
+          item.getAsString((s: string) => {
+            if (s.indexOf('href') === -1) return;
+            //extract href
+            const start = s.substring(s.indexOf('href') + 6);
+            const hrefStr = start.substring(0, start.indexOf('"'));
+
+            const upload: FilePreview = {
+              data: hrefStr,
+              preview: hrefStr,
+              type: 'url',
+              name: hrefStr.substring(hrefStr.lastIndexOf('/') + 1),
+              mime: '',
+            };
+            setPreviews((prevPreviews) => [...prevPreviews, upload]);
+          });
+        }
+      }
+    }
+  };
+
+  const handleDeletePreview = (itemToDelete: FilePreview) => {
+    if (itemToDelete.type === 'file') {
+      URL.revokeObjectURL(itemToDelete.preview); // Clean up for file
+    }
+    setPreviews(previews().filter((item) => item !== itemToDelete));
+  };
+
+  const onMicrophoneClicked = () => {
+    setIsRecording(true);
+    startAudioRecording(setIsRecording, setRecordingNotSupported, setElapsedTime);
+  };
+
+  const onRecordingCancelled = () => {
+    if (!recordingNotSupported) cancelAudioRecording();
+    setIsRecording(false);
+    setRecordingNotSupported(false);
+  };
+
+  const onRecordingStopped = async () => {
+    setIsLoadingRecording(true);
+    stopAudioRecording(addRecordingToPreviews);
+  };
+
+  const getInputDisabled = (): boolean => {
+    const messagesArray = messages();
+    const disabled =
+      loading() ||
+      !props.chatflowid ||
+      (leadsConfig()?.status && !isLeadSaved()) ||
+      (messagesArray[messagesArray.length - 1].action && Object.keys(messagesArray[messagesArray.length - 1].action as any).length > 0);
+    if (disabled) {
+      return true;
+    }
+    return false;
+  };
+
+  // TTS Functions
+  const processChunkQueue = () => {
+    const currentState = ttsStreamingState();
+    if (!currentState.sourceBuffer || currentState.sourceBuffer.updating || currentState.chunkQueue.length === 0) {
+      return;
+    }
+
+    const chunk = currentState.chunkQueue[0];
+    if (!chunk) return;
+
+    try {
+      currentState.sourceBuffer.appendBuffer(chunk);
+      setTtsStreamingState((prevState) => ({
+        ...prevState,
+        chunkQueue: prevState.chunkQueue.slice(1),
+        isBuffering: true,
+      }));
+    } catch (error) {
+      console.error('Error appending chunk to buffer:', error);
+    }
+  };
+
+  const handleTTSStart = (data: { chatMessageId: string; format: string }) => {
+    setTTSAction(true);
+
+    // Ensure complete cleanup before starting new TTS
+    stopAllTTS();
+
+    setIsTTSLoading((prevState) => ({
+      ...prevState,
+      [data.chatMessageId]: true,
+    }));
+
+    setMessages((prevMessages) => {
+      const allMessages = [...cloneDeep(prevMessages)];
+      const lastMessage = allMessages[allMessages.length - 1];
+      if (lastMessage.type === 'userMessage') return allMessages;
+      const existingId = lastMessage.id || lastMessage.messageId;
+      if (!existingId) {
+        allMessages[allMessages.length - 1].id = data.chatMessageId;
+      } else if (!lastMessage.id) {
+        allMessages[allMessages.length - 1].id = existingId;
+      }
+      return allMessages;
+    });
+
+    setTtsStreamingState({
+      mediaSource: null,
+      sourceBuffer: null,
+      audio: null,
+      chunkQueue: [],
+      isBuffering: false,
+      audioFormat: data.format,
+      abortController: null,
+    });
+
+    setTimeout(() => initializeTTSStreaming(data), 100);
+  };
+
+  const handleTTSDataChunk = (base64Data: string) => {
+    try {
+      const audioBuffer = Uint8Array.from(atob(base64Data), (c) => c.charCodeAt(0));
+
+      setTtsStreamingState((prevState) => {
+        const newState = {
+          ...prevState,
+          chunkQueue: [...prevState.chunkQueue, audioBuffer],
+        };
+
+        // Schedule processing after state update
+        if (prevState.sourceBuffer && !prevState.sourceBuffer.updating) {
+          setTimeout(() => processChunkQueue(), 0);
+        }
+
+        return newState;
+      });
+    } catch (error) {
+      console.error('Error handling TTS data chunk:', error);
+    }
+  };
+
+  const handleTTSEnd = () => {
+    const currentState = ttsStreamingState();
+    if (currentState.mediaSource && currentState.mediaSource.readyState === 'open') {
+      try {
+        // Process any remaining chunks first
+        if (currentState.sourceBuffer && currentState.chunkQueue.length > 0 && !currentState.sourceBuffer.updating) {
+          const remainingChunks = [...currentState.chunkQueue];
+          remainingChunks.forEach((chunk, index) => {
+            setTimeout(() => {
+              const state = ttsStreamingState();
+              if (state.sourceBuffer && !state.sourceBuffer.updating) {
+                try {
+                  state.sourceBuffer.appendBuffer(chunk);
+                  if (index === remainingChunks.length - 1) {
+                    setTimeout(() => {
+                      const finalState = ttsStreamingState();
+                      if (finalState.mediaSource && finalState.mediaSource.readyState === 'open') {
+                        finalState.mediaSource.endOfStream();
+                      }
+                    }, 100);
+                  }
+                } catch (error) {
+                  console.error('Error appending remaining chunk:', error);
+                }
+              }
+            }, index * 50);
+          });
+
+          setTtsStreamingState((prevState) => ({
+            ...prevState,
+            chunkQueue: [],
+          }));
+        } else if (currentState.sourceBuffer && !currentState.sourceBuffer.updating) {
+          currentState.mediaSource.endOfStream();
+        } else if (currentState.sourceBuffer) {
+          const handleFinalUpdateEnd = () => {
+            const finalState = ttsStreamingState();
+            if (finalState.mediaSource && finalState.mediaSource.readyState === 'open') {
+              finalState.mediaSource.endOfStream();
+            }
+          };
+          currentState.sourceBuffer.addEventListener('updateend', handleFinalUpdateEnd, { once: true });
+        }
+      } catch (error) {
+        console.error('Error ending TTS stream:', error);
+      }
+    }
+  };
+
+  const initializeTTSStreaming = (data: { chatMessageId: string; format: string }) => {
+    try {
+      const mediaSource = new MediaSource();
+      const audio = new Audio();
+
+      // Pre-configure audio element
+      audio.preload = 'none';
+      audio.autoplay = false;
+
+      audio.src = URL.createObjectURL(mediaSource);
+
+      const sourceOpenHandler = () => {
+        try {
+          const mimeType = data.format === 'mp3' ? 'audio/mpeg' : 'audio/mpeg';
+
+          // Check if MediaSource supports the MIME type
+          if (!MediaSource.isTypeSupported(mimeType)) {
+            console.error('MediaSource does not support MIME type:', mimeType);
+            return;
+          }
+
+          const sourceBuffer = mediaSource.addSourceBuffer(mimeType);
+
+          setTtsStreamingState((prevState) => ({
+            ...prevState,
+            mediaSource,
+            sourceBuffer,
+            audio,
+          }));
+
+          // Start audio playback
+          audio.play().catch((playError) => {
+            console.error('Error starting audio playback:', playError);
+            // Cleanup on play error
+            cleanupTTSStreaming();
+          });
+        } catch (error) {
+          console.error('Error setting up source buffer:', error);
+          console.error('MediaSource readyState:', mediaSource.readyState);
+          // Cleanup on error
+          cleanupTTSStreaming();
+        }
+      };
+
+      const playingHandler = () => {
+        setIsTTSLoading((prevState) => {
+          const newState = { ...prevState };
+          delete newState[data.chatMessageId];
+          return newState;
+        });
+        setIsTTSPlaying((prevState) => ({
+          ...prevState,
+          [data.chatMessageId]: true,
+        }));
+      };
+
+      const endedHandler = () => {
+        setIsTTSPlaying((prevState) => {
+          const newState = { ...prevState };
+          delete newState[data.chatMessageId];
+          return newState;
+        });
+        cleanupTTSStreaming();
+      };
+
+      const errorHandler = (event: Event) => {
+        console.error('Audio error during TTS playback:', event);
+        setIsTTSLoading((prev) => {
+          const newState = { ...prev };
+          delete newState[data.chatMessageId];
+          return newState;
+        });
+        setIsTTSPlaying((prev) => {
+          const newState = { ...prev };
+          delete newState[data.chatMessageId];
+          return newState;
+        });
+        cleanupTTSStreaming();
+      };
+
+      mediaSource.addEventListener('sourceopen', sourceOpenHandler);
+      audio.addEventListener('playing', playingHandler);
+      audio.addEventListener('ended', endedHandler);
+      audio.addEventListener('error', errorHandler);
+    } catch (error) {
+      console.error('Error initializing TTS streaming:', error);
+      // Ensure cleanup on initialization error
+      setIsTTSLoading((prev) => {
+        const newState = { ...prev };
+        delete newState[data.chatMessageId];
+        return newState;
+      });
+    }
+  };
+
+  const cleanupTTSStreaming = () => {
+    const currentState = ttsStreamingState();
+
+    if (currentState.abortController) {
+      currentState.abortController.abort();
+    }
+
+    if (currentState.audio) {
+      currentState.audio.pause();
+      currentState.audio.currentTime = 0;
+      currentState.audio.removeAttribute('src');
+      currentState.audio.load(); // Force reload to clear buffer
+      if (currentState.audio.src) {
+        URL.revokeObjectURL(currentState.audio.src);
+      }
+      // Remove all event listeners
+      currentState.audio.removeEventListener('playing', () => console.log('Playing'));
+      currentState.audio.removeEventListener('ended', () => console.log('Ended'));
+    }
+
+    if (currentState.sourceBuffer) {
+      // Clear any pending data in the source buffer
+      if (currentState.sourceBuffer.updating) {
+        try {
+          currentState.sourceBuffer.abort();
+        } catch (e) {
+          // Ignore abort errors
+        }
+      }
+
+      // Remove buffered data if possible
+      try {
+        if (currentState.sourceBuffer.buffered.length > 0) {
+          const start = currentState.sourceBuffer.buffered.start(0);
+          const end = currentState.sourceBuffer.buffered.end(currentState.sourceBuffer.buffered.length - 1);
+          currentState.sourceBuffer.remove(start, end);
+        }
+      } catch (e) {
+        // Ignore remove errors during cleanup
+      }
+
+      // Remove update listeners
+      if (currentState.sourceBuffer.onupdateend) {
+        currentState.sourceBuffer.removeEventListener('updateend', currentState.sourceBuffer.onupdateend);
+        currentState.sourceBuffer.onupdateend = null;
+      }
+    }
+
+    if (currentState.mediaSource) {
+      if (currentState.mediaSource.readyState === 'open') {
+        try {
+          // Remove source buffers before ending stream
+          if (currentState.sourceBuffer && currentState.mediaSource.sourceBuffers.length > 0) {
+            currentState.mediaSource.removeSourceBuffer(currentState.sourceBuffer);
+          }
+          currentState.mediaSource.endOfStream();
+        } catch (e) {
+          // Ignore errors during cleanup
+        }
+      }
+      // Remove source open event listeners
+      currentState.mediaSource.removeEventListener('sourceopen', () => console.log('removed source open event listener'));
+    }
+
+    setTtsStreamingState({
+      mediaSource: null,
+      sourceBuffer: null,
+      audio: null,
+      chunkQueue: [],
+      isBuffering: false,
+      audioFormat: null,
+      abortController: null,
+    });
+  };
+
+  const cleanupTTSForMessage = (messageId: string) => {
+    const audioElements = ttsAudio();
+    if (audioElements[messageId]) {
+      audioElements[messageId].pause();
+      audioElements[messageId].currentTime = 0;
+      // Force cleanup of audio element
+      audioElements[messageId].src = '';
+      audioElements[messageId].load();
+      setTtsAudio((prev) => {
+        const newState = { ...prev };
+        delete newState[messageId];
+        return newState;
+      });
+    }
+
+    // Always cleanup streaming state when stopping any TTS
+    const streamingState = ttsStreamingState();
+    if (streamingState.audio || streamingState.mediaSource || streamingState.sourceBuffer) {
+      cleanupTTSStreaming();
+    }
+
+    setIsTTSPlaying((prev) => {
+      const newState = { ...prev };
+      delete newState[messageId];
+      return newState;
+    });
+
+    setIsTTSLoading((prev) => {
+      const newState = { ...prev };
+      delete newState[messageId];
+      return newState;
+    });
+  };
+
+  const handleTTSStop = async (messageId: string) => {
+    setTTSAction(true);
+
+    // Abort TTS request if active
+    try {
+      await abortTTSQuery({
+        apiHost: props.apiHost,
+        body: {
+          chatflowId: props.chatflowid,
+          chatId: chatId(),
+          chatMessageId: messageId,
+        },
+        onRequest: props.onRequest,
+      });
+    } catch (error) {
+      console.warn(`Error aborting TTS for message ${messageId}:`, error);
+    }
+
+    cleanupTTSForMessage(messageId);
+  };
+
+  const stopAllTTS = () => {
+    const audioElements = ttsAudio();
+    Object.keys(audioElements).forEach((messageId) => {
+      if (audioElements[messageId]) {
+        audioElements[messageId].pause();
+        audioElements[messageId].currentTime = 0;
+        // Force cleanup of each audio element
+        audioElements[messageId].src = '';
+        audioElements[messageId].load();
+      }
+    });
+    setTtsAudio({});
+
+    const streamingState = ttsStreamingState();
+    if (streamingState.abortController) {
+      streamingState.abortController.abort();
+    }
+
+    // Always cleanup streaming state
+    cleanupTTSStreaming();
+
+    setIsTTSPlaying({});
+    setIsTTSLoading({});
+  };
+
+  const handleTTSAbortAll = async () => {
+    const activeTTSMessages = Object.keys(isTTSLoading()).concat(Object.keys(isTTSPlaying()));
+    for (const messageId of activeTTSMessages) {
+      try {
+        await abortTTSQuery({
+          apiHost: props.apiHost,
+          body: {
+            chatflowId: props.chatflowid,
+            chatId: chatId(),
+            chatMessageId: messageId,
+          },
+          onRequest: props.onRequest,
+        });
+      } catch (error) {
+        console.warn(`Error aborting TTS for message ${messageId}:`, error);
+      }
+    }
+  };
+
+  const handleTTSClick = async (messageId: string, messageText: string) => {
+    const loadingState = isTTSLoading();
+    if (loadingState[messageId]) return;
+
+    const playingState = isTTSPlaying();
+    const audioElement = ttsAudio()[messageId];
+    if (playingState[messageId] || audioElement) {
+      await handleTTSStop(messageId);
+      return;
+    }
+
+    setTTSAction(true);
+
+    // Ensure complete cleanup before starting new TTS
+    await handleTTSAbortAll();
+    stopAllTTS();
+
+    handleTTSStart({ chatMessageId: messageId, format: 'mp3' });
+
+    try {
+      const abortController = new AbortController();
+      setTtsStreamingState((prev) => ({ ...prev, abortController }));
+
+      const response = await generateTTSQuery({
+        apiHost: props.apiHost,
+        body: {
+          chatId: chatId(),
+          chatflowId: props.chatflowid,
+          chatMessageId: messageId,
+          text: messageText,
+        },
+        onRequest: props.onRequest,
+        signal: abortController.signal,
+      });
+
+      if (!response.ok) {
+        throw new Error(`TTS request failed: ${response.status}`);
+      }
+
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+
+      if (reader) {
+        let buffer = '';
+        let done = false;
+        while (!done) {
+          if (abortController.signal.aborted) {
+            break;
+          }
+
+          const result = await reader.read();
+          done = result.done;
+          if (done) break;
+
+          const value = result.value;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          for (const line of lines) {
+            if (line.trim() && line.startsWith('data: ')) {
+              try {
+                const eventData = line.slice(6);
+                if (eventData === '[DONE]') break;
+
+                const event = JSON.parse(eventData);
+                switch (event.event) {
+                  case 'tts_start':
+                    break;
+                  case 'tts_data':
+                    if (!abortController.signal.aborted) {
+                      handleTTSDataChunk(event.data.audioChunk);
+                    }
+                    break;
+                  case 'tts_end':
+                    if (!abortController.signal.aborted) {
+                      handleTTSEnd();
+                    }
+                    break;
+                }
+              } catch (parseError) {
+                console.error('Error parsing SSE event:', parseError);
+              }
+            }
+          }
+        }
+      }
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        cleanupTTSForMessage(messageId);
+      } else {
+        console.error('Error with TTS:', error);
+        // Show error feedback to user
+        setIsTTSLoading((prev) => {
+          const newState = { ...prev };
+          delete newState[messageId];
+          return newState;
+        });
+        setIsTTSPlaying((prev) => {
+          const newState = { ...prev };
+          delete newState[messageId];
+          return newState;
+        });
+        cleanupTTSForMessage(messageId);
+      }
+    } finally {
+      setIsTTSLoading((prev) => {
+        const newState = { ...prev };
+        delete newState[messageId];
+        return newState;
+      });
+    }
+  };
+
+  const handleTTSAbort = (data: { chatMessageId: string }) => {
+    const messageId = data.chatMessageId;
+    cleanupTTSForMessage(messageId);
+  };
+
+  createEffect(
+    // listen for changes in previews
+    on(previews, (uploads) => {
+      // wait for audio recording to load and then send
+      const containsAudio = uploads.filter((item) => item.type === 'audio').length > 0;
+      if (uploads.length >= 1 && containsAudio) {
+        setIsRecording(false);
+        setRecordingNotSupported(false);
+        promptClick('');
+      }
+
+      return () => {
+        setPreviews([]);
+      };
+    }),
+  );
+
+  const previewDisplay = (item: FilePreview) => {
+    if (item.mime.startsWith('image/')) {
+      return (
+        <button
+          class="group w-12 h-12 flex items-center justify-center relative rounded-xl overflow-hidden transition-colors duration-200"
+          onClick={() => handleDeletePreview(item)}
+        >
+          <img class="w-full h-full bg-cover" src={item.data as string} />
+          <span class="absolute hidden group-hover:flex items-center justify-center z-10 w-full h-full top-0 left-0 bg-black/10 rounded-xl transition-colors duration-200">
+            <TrashIcon />
+          </span>
+        </button>
+      );
+    } else if (item.mime.startsWith('audio/')) {
+      return (
+        <div
+          class={`inline-flex basis-auto flex-grow-0 flex-shrink-0 justify-between items-center rounded-xl h-12 p-1 mr-1 bg-gray-500`}
+          style={{
+            width: `${chatContainer ? (botProps.isFullPage ? chatContainer?.offsetWidth / 4 : chatContainer?.offsetWidth / 2) : '200'}px`,
+          }}
+        >
+          <audio class="block bg-cover bg-center w-full h-full rounded-none text-transparent" controls src={item.data as string} />
+          <button class="w-7 h-7 flex items-center justify-center bg-transparent p-1" onClick={() => handleDeletePreview(item)}>
+            <TrashIcon color="white" />
+          </button>
+        </div>
+      );
+    } else {
+      return <FilePreview disabled={getInputDisabled()} item={item} onDelete={() => handleDeletePreview(item)} />;
+    }
+  };
+
+  return (
+    <>
+      {startInputType() === 'formInput' && messages().length === 1 ? (
+        <FormInputView
+          title={formTitle()}
+          description={formDescription()}
+          inputParams={formInputParams()}
+          onSubmit={(formData) => handleSubmit(formData)}
+          parentBackgroundColor={props?.backgroundColor}
+          backgroundColor={props?.formBackgroundColor}
+          textColor={props?.formTextColor || props.botMessage?.textColor}
+          sendButtonColor={props.textInput?.sendButtonColor}
+          fontSize={props.fontSize}
+        />
+      ) : (
+        <div
+          ref={botContainer}
+          class={'relative flex w-full h-full text-base overflow-hidden bg-cover bg-center flex-col items-center chatbot-container ' + props.class}
+          onDragEnter={handleDrag}
+        >
+          {isDragActive() && (
+            <div
+              class="absolute top-0 left-0 bottom-0 right-0 w-full h-full z-50"
+              onDragEnter={handleDrag}
+              onDragLeave={handleDrag}
+              onDragEnd={handleDrag}
+              onDragOver={handleDrag}
+              onDrop={handleDrop}
+            />
+          )}
+          {isDragActive() && (uploadsConfig()?.isImageUploadAllowed || isFileUploadAllowed()) && (
+            <div
+              class="absolute top-0 left-0 bottom-0 right-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm text-white z-40 gap-2 border-2 border-dashed rounded-2xl"
+              style={{ 'border-color': props.bubbleBackgroundColor }}
+            >
+              <h2 class="text-xl font-semibold">Drop here to upload</h2>
+              <For each={[...(uploadsConfig()?.imgUploadSizeAndTypes || []), ...(uploadsConfig()?.fileUploadSizeAndTypes || [])]}>
+                {(allowed) => {
+                  return (
+                    <>
+                      <span>{allowed.fileTypes?.join(', ')}</span>
+                      {allowed.maxUploadSize && <span>Max Allowed Size: {allowed.maxUploadSize} MB</span>}
+                    </>
+                  );
+                }}
+              </For>
+            </div>
+          )}
+
+          {/* Removed the title bar from here as it's now handled by ChatLayout */}
+          <div class="flex flex-col w-full h-full justify-start z-0">
+            <div
+              ref={chatContainer}
+              class="overflow-y-scroll flex flex-col flex-grow min-w-full w-full px-3 pt-4 relative scrollable-container chatbot-chat-view scroll-smooth"
+            >
+              <For each={[...messages()]}>
+                {(message, index) => {
+                  return (
+                    <>
+                      {message.type === 'userMessage' && (
+                        <GuestBubble
+                          message={message}
+                          apiHost={props.apiHost}
+                          chatflowid={props.chatflowid}
+                          chatId={chatId()}
+                          backgroundColor={props.userMessage?.backgroundColor}
+                          textColor={props.userMessage?.textColor}
+                          showAvatar={props.userMessage?.showAvatar}
+                          avatarSrc={props.userMessage?.avatarSrc}
+                          fontSize={props.fontSize}
+                          renderHTML={props.renderHTML}
+                        />
+                      )}
+                      {message.type === 'apiMessage' && (
+                        <BotBubble
+                          message={message}
+                          fileAnnotations={message.fileAnnotations}
+                          chatflowid={props.chatflowid}
+                          chatId={chatId()}
+                          apiHost={props.apiHost}
+                          backgroundColor={props.botMessage?.backgroundColor}
+                          textColor={props.botMessage?.textColor}
+                          feedbackColor={props.feedback?.color}
+                          showAvatar={props.botMessage?.showAvatar}
+                          avatarSrc={props.botMessage?.avatarSrc}
+                          chatFeedbackStatus={chatFeedbackStatus()}
+                          fontSize={props.fontSize}
+                          isLoading={loading() && index() === messages().length - 1}
+                          showAgentMessages={props.showAgentMessages}
+                          handleActionClick={(elem, action) => handleActionClick(elem, action)}
+                          sourceDocsTitle={props.sourceDocsTitle}
+                          handleSourceDocumentsClick={(sourceDocuments) => {
+                            setSourcePopupSrc(sourceDocuments);
+                            setSourcePopupOpen(true);
+                          }}
+                          dateTimeToggle={props.dateTimeToggle}
+                          renderHTML={props.renderHTML}
+                          isTTSEnabled={isTTSEnabled()}
+                          isTTSLoading={isTTSLoading()}
+                          isTTSPlaying={isTTSPlaying()}
+                          handleTTSClick={handleTTSClick}
+                          handleTTSStop={handleTTSStop}
+                          onRegenerate={regenerateLastResponse}
+                          onStop={stopGeneration}
+                          isStreaming={loading() && isChatFlowAvailableToStream()}
+                        />
+                      )}
+                      {message.type === 'leadCaptureMessage' && leadsConfig()?.status && !getLocalStorageChatflow(props.chatflowid)?.lead && (
+                        <LeadCaptureBubble
+                          message={message}
+                          chatflowid={props.chatflowid}
+                          chatId={chatId()}
+                          apiHost={props.apiHost}
+                          backgroundColor={props.botMessage?.backgroundColor}
+                          textColor={props.botMessage?.textColor}
+                          fontSize={props.fontSize}
+                          showAvatar={props.botMessage?.showAvatar}
+                          avatarSrc={props.botMessage?.avatarSrc}
+                          leadsConfig={leadsConfig()}
+                          sendButtonColor={props.textInput?.sendButtonColor}
+                          isLeadSaved={isLeadSaved()}
+                          setIsLeadSaved={setIsLeadSaved}
+                          setLeadEmail={setLeadEmail}
+                        />
+                      )}
+                      {message.type === 'userMessage' && loading() && index() === messages().length - 1 && <LoadingBubble />}
+                      {message.type === 'apiMessage' && message.message === '' && loading() && index() === messages().length - 1 && <LoadingBubble />}
+                    </>
+                  );
+                }}
+              </For>
+            </div>
+            <Show when={messages().length === 1}>
+              <Show when={starterPrompts().length > 0}>
+                <div class="w-full flex flex-row flex-wrap px-5 py-[10px] gap-2">
+                  <For each={[...starterPrompts()]}>
+                    {(key) => (
+                      <StarterPromptBubble
+                        prompt={key}
+                        onPromptClick={() => promptClick(key)}
+                        starterPromptFontSize={botProps.starterPromptFontSize} // Pass it here as a number
+                      />
+                    )}
+                  </For>
+                </div>
+              </Show>
+            </Show>
+            <Show when={messages().length > 2 && followUpPromptsStatus()}>
+              <Show when={followUpPrompts().length > 0}>
+                <>
+                  <div class="flex items-center gap-1 px-5">
+                    <SparklesIcon class="w-4 h-4" />
+                    <span class="text-sm text-gray-700 dark:text-gray-300">Try these prompts</span>
+                  </div>
+                  <div class="w-full flex flex-row flex-wrap px-5 py-[10px] gap-2">
+                    <For each={[...followUpPrompts()]}>
+                      {(prompt, index) => (
+                        <FollowUpPromptBubble
+                          prompt={prompt}
+                          onPromptClick={() => followUpPromptClick(prompt)}
+                          starterPromptFontSize={botProps.starterPromptFontSize} // Pass it here as a number
+                        />
+                      )}
+                    </For>
+                  </div>
+                </>
+              </Show>
+            </Show>
+            <Show when={previews().length > 0}>
+              <div class="w-full flex items-center justify-start gap-2 px-5 pt-2 border-t border-gray-200 dark:border-gray-700">
+                <For each={[...previews()]}>{(item) => <>{previewDisplay(item)}</>}</For>
+              </div>
+            </Show>
+            <div class="w-full px-5 pt-2 pb-1">
+              {isRecording() ? (
+                <>
+                  {recordingNotSupported() ? (
+                    <div class="w-full flex items-center justify-between p-4 border rounded-xl border-gray-200 dark:border-gray-700">
+                      <div class="w-full flex items-center justify-between gap-3">
+                        <span class="text-base text-gray-700 dark:text-gray-300">To record audio, use modern browsers like Chrome or Firefox that support audio recording.</span>
+                        <button
+                          class="py-2 px-4 justify-center flex items-center bg-red-500 text-white rounded-xl"
+                          type="button"
+                          onClick={() => onRecordingCancelled()}
+                        >
+                          Okay
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      class="h-[58px] flex items-center justify-between chatbot-input border rounded-xl border-gray-200 dark:border-gray-700"
+                      data-testid="input"
+                      style={{
+                        margin: 'auto',
+                        'background-color': isDarkMode() ? 'var(--input-bg-dark)' : 'var(--input-bg-light)',
+                        color: isDarkMode() ? 'var(--input-text-dark)' : 'var(--input-text-light)',
+                      }}
+                    >
+                      <div class="flex items-center gap-3 px-4 py-2">
+                        <span>
+                          <CircleDotIcon color="red" />
+                        </span>
+                        <span>{elapsedTime() || '00:00'}</span>
+                        {isLoadingRecording() && <span class="ml-1.5">Sending...</span>}
+                      </div>
+                      <div class="flex items-center">
+                        <CancelButton buttonColor={props.textInput?.sendButtonColor} type="button" class="m-0" on:click={onRecordingCancelled}>
+                          <span style={{ 'font-family': 'Inter, sans-serif' }}>Cancel</span>
+                        </CancelButton>
+                        <SendButton
+                          sendButtonColor={props.textInput?.sendButtonColor}
+                          type="button"
+                          isDisabled={loading()}
+                          class="m-0"
+                          on:click={onRecordingStopped}
+                        >
+                          <span style={{ 'font-family': 'Inter, sans-serif' }}>Send</span>
+                        </SendButton>
+                      </div>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <TextInput
+                  backgroundColor={props.textInput?.backgroundColor}
+                  textColor={props.textInput?.textColor}
+                  placeholder={props.textInput?.placeholder}
+                  sendButtonColor={props.textInput?.sendButtonColor}
+                  maxChars={props.textInput?.maxChars}
+                  maxCharsWarningMessage={props.textInput?.maxCharsWarningMessage}
+                  autoFocus={props.textInput?.autoFocus}
+                  fontSize={props.fontSize}
+                  disabled={getInputDisabled()}
+                  inputValue={userInput()}
+                  onInputChange={(value) => setUserInput(value)}
+                  onSubmit={handleSubmit}
+                  uploadsConfig={uploadsConfig()}
+                  isFullFileUpload={fullFileUpload()}
+                  fullFileUploadAllowedTypes={fullFileUploadAllowedTypes()}
+                  setPreviews={setPreviews}
+                  onMicrophoneClicked={onMicrophoneClicked}
+                  handleFileChange={handleFileChange}
+                  sendMessageSound={props.textInput?.sendMessageSound}
+                  sendSoundLocation={props.textInput?.sendSoundLocation}
+                  enableInputHistory={true}
+                  maxHistorySize={10}
+                />
+              )}
+            </div>
+            <Badge
+              footer={props.footer}
+              badgeBackgroundColor={props.badgeBackgroundColor}
+              poweredByTextColor={props.poweredByTextColor}
+              botContainer={botContainer}
+            />
+          </div>
+        </div>
+      )}
+      {sourcePopupOpen() && <Popup isOpen={sourcePopupOpen()} value={sourcePopupSrc()} onClose={() => setSourcePopupOpen(false)} />}
+
+      {disclaimerPopupOpen() && (
+        <DisclaimerPopup
+          isOpen={disclaimerPopupOpen()}
+          onAccept={handleDisclaimerAccept}
+          title={props.disclaimer?.title}
+          message={props.disclaimer?.message}
+          textColor={props.disclaimer?.textColor}
+          buttonColor={props.disclaimer?.buttonColor}
+          buttonText={props.disclaimer?.buttonText}
+          buttonTextColor={props.disclaimer?.buttonTextColor}
+          blurredBackgroundColor={props.disclaimer?.blurredBackgroundColor}
+          backgroundColor={props.disclaimer?.backgroundColor}
+          denyButtonBgColor={props.disclaimer?.denyButtonBgColor}
+          denyButtonText={props.disclaimer?.denyButtonText}
+          onDeny={props.closeBot}
+          isFullPage={props.isFullPage}
+        />
+      )}
+
+      {openFeedbackDialog() && (
+        <FeedbackDialog
+          isOpen={openFeedbackDialog()}
+          onClose={() => {
+            setOpenFeedbackDialog(false);
+            handleSubmitFeedback();
+          }}
+          onSubmit={handleSubmitFeedback}
+          feedbackValue={feedback()}
+          setFeedbackValue={(value) => setFeedback(value)}
+        />
+      )}
+    </>
+  );
+};

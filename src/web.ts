@@ -1,4 +1,3 @@
-import { registerWebComponents } from './register';
 import { parseChatbot, injectChatbotInWindow } from './window';
 import { ThemeProvider } from './context/ThemeContext';
 import { ChatLayout } from './components/layout/ChatLayout';
@@ -6,27 +5,29 @@ import { customElement } from 'solid-element';
 import { defaultBotProps } from './constants';
 import { Bubble } from './features/bubble';
 import { Full } from './features/full';
-
-// Register web components first
-registerWebComponents();
+import { JSX } from 'solid-js';
 
 // Define a wrapper for the Full component to include ThemeProvider and ChatLayout
-const FullWithLayout = (props: any, { element }: { element: HTMLElement }) => (
-  <ThemeProvider>
-    <ChatLayout>
-      <Full {...props} element={element} />
-    </ChatLayout>
-  </ThemeProvider>
-);
+const FullWithLayout = (props: any, { element }: { element: HTMLElement }): JSX.Element => {
+  return (
+    <ThemeProvider>
+      <ChatLayout>
+        <Full {...props} element={element} />
+      </ChatLayout>
+    </ThemeProvider>
+  );
+};
 
 // Define a wrapper for the Bubble component to include ThemeProvider and ChatLayout
-const BubbleWithLayout = (props: any) => (
-  <ThemeProvider>
-    <ChatLayout>
-      <Bubble {...props} />
-    </ChatLayout>
-  </ThemeProvider>
-);
+const BubbleWithLayout = (props: any): JSX.Element => {
+  return (
+    <ThemeProvider>
+      <ChatLayout>
+        <Bubble {...props} />
+      </ChatLayout>
+    </ThemeProvider>
+  );
+};
 
 // Re-register web components with the new wrappers
 if (typeof window !== 'undefined') {
