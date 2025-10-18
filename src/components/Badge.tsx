@@ -48,7 +48,7 @@ export const Badge = (props: Props) => {
             'background-color': props.badgeBackgroundColor ?? '#ffffff',
           }}
         >
-          {props.footer?.text ?? 'Powered by'}
+          {props.footer?.text ?? 'Driven by'}
           <a
             ref={liteBadge}
             href={props.footer?.companyLink ?? 'mailto:mail.rps.active@proton.me'}
