@@ -30,7 +30,7 @@ import { Popup, DisclaimerPopup } from '../features/popup';
 import { Avatar } from './avatars/Avatar';
 import { DeleteButton, SendButton } from './buttons/SendButton';
 import { FilePreview } from './inputs/textInput/components/FilePreview';
-import { CircleDotIcon, SparklesIcon, TrashIcon, RegenerateIcon, StopIcon } from '@/components/icons';
+import { CircleDotIcon, SparklesIcon, TrashIcon, RegenerateIcon, StopIcon, MenuIcon } from '@/components/icons';
 import { CancelButton } from './buttons/CancelButton';
 import { cancelAudioRecording, startAudioRecording, stopAudioRecording } from '../utils/audioRecording';
 import { LeadCaptureBubble } from './bubbles/LeadCaptureBubble';
@@ -39,6 +39,7 @@ import { cloneDeep } from 'lodash';
 import { FollowUpPromptBubble } from './bubbles/FollowUpPromptBubble';
 import { fetchEventSource, EventStreamContentType } from '@microsoft/fetch-event-source';
 import { useTheme } from '../context/ThemeContext';
+import { ChatHistoryPanel, Conversation } from './ChatHistoryPanel'; // Import ChatHistoryPanel and Conversation type
 
 export type FileEvent<T = EventTarget> = {
   target: T;
@@ -127,6 +128,7 @@ export type MessageType = {
   id?: string;
   followUpPrompts?: string;
   dateTime?: string;
+  humanInput?: any; // Added humanInput property
 };
 
 type IUploads = {
@@ -145,6 +147,7 @@ export type BotProps = {
   onRequest?: (request: RequestInit) => Promise<void>;
   chatflowConfig?: Record<string, unknown>;
   backgroundColor?: string;
+  textColor?: string; // Added textColor
   welcomeMessage?: string;
   errorMessage?: string;
   botMessage?: BotMessageTheme;
@@ -159,8 +162,8 @@ export type BotProps = {
   showAgentMessages?: boolean;
   title?: string;
   titleAvatarSrc?: string;
-  titleTextColor?: string;
-  titleBackgroundColor?: string;
+  titleTextColor?: string; // Added titleTextColor
+  titleBackgroundColor?: string; // Added titleBackgroundColor
   formBackgroundColor?: string;
   formTextColor?: string;
   fontSize?: number;
@@ -191,6 +194,7 @@ const defaultWelcomeMessage = 'Hi there! How can I help?';
 const defaultBackgroundColor = '#ffffff';
 const defaultTextColor = '#303235';
 const defaultTitleBackgroundColor = '#3B81F6';
+const defaultTitleTextColor = '#ffffff'; // Defined defaultTitleTextColor
 
 /* FeedbackDialog component - for collecting user feedback */
 const FeedbackDialog = (props: {
@@ -412,6 +416,12 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   const [loading, setLoading] = createSignal(false);
   const [sourcePopupOpen, setSourcePopupOpen] = createSignal(false);
   const [sourcePopupSrc, setSourcePopupSrc] = createSignal({});
+  
+  // Conversation management states
+  const [conversations, setConversations] = createSignal<Conversation[]>([]);
+  const [currentConversationId, setCurrentConversationId] = createSignal<string>('');
+  const [showChatHistoryPanel, setShowChatHistoryPanel] = createSignal(false);
+
   const [messages, setMessages] = createSignal<MessageType[]>(
     [
       {
@@ -581,7 +591,14 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       }
       return item;
     });
-    setLocalStorageChatflow(props.chatflowid, chatId(), { chatHistory: messages });
+    // Update the current conversation in the conversations list
+    setConversations((prevConversations) => {
+      const updatedConversations = prevConversations.map((conv) =>
+        conv.id === currentConversationId() ? { ...conv, chatHistory: messages, updatedAt: new Date().toISOString() } : conv,
+      );
+      localStorage.setItem(`${props.chatflowid}_CONVERSATIONS`, JSON.stringify(updatedConversations));
+      return updatedConversations;
+    });
   };
 
   // Define the audioRef
@@ -675,7 +692,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   const updateAgentFlowEvent = (event: string) => {
     if (event === 'INPROGRESS') {
-      setMessages((prevMessages) => [...prevMessages, { message: '', type: 'apiMessage', agentFlowEventStatus: event }]);
+      setMessages((prevMessages) => [...prevMessages, { message: '', type: 'apiMessage' }]);
     } else {
       setMessages((prevMessages) => {
         const allMessages = [...cloneDeep(prevMessages)];
@@ -909,8 +926,11 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     }, 100);
   };
 
+  const abortController = new AbortController(); // For stopping streaming responses
+
   const abortMessage = () => {
     setIsMessageStopping(false);
+    abortController.abort(); // Abort the fetch request
 
     // Stop all TTS when aborting message
     stopAllTTS();
@@ -1205,55 +1225,99 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     }
   };
 
-  const clearChat = () => {
-    try {
-      removeLocalStorageChatHistory(props.chatflowid);
-      setChatId(
-        (props.chatflowConfig?.vars as any)?.customerId ? `${(props.chatflowConfig?.vars as any).customerId.toString()}+${uuidv4()}` : uuidv4(),
-      );
+  const createNewChat = () => {
+    const newChatId = uuidv4();
+    const newConversation: Conversation = {
+      id: newChatId,
+      title: `New Chat ${conversations().length + 1}`,
+      chatflowid: props.chatflowid,
+      chatHistory: [{ message: props.welcomeMessage ?? defaultWelcomeMessage, type: 'apiMessage' as messageType }], // Cast to messageType
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    setConversations((prev) => {
+      const updated = [...prev, newConversation];
+      localStorage.setItem(`${props.chatflowid}_CONVERSATIONS`, JSON.stringify(updated));
+      return updated;
+    });
+    setCurrentConversationId(newChatId);
+    setMessages(newConversation.chatHistory);
+    setChatId(newChatId); // Update current chatId for API calls
+    setShowChatHistoryPanel(false);
+    clearPreviews();
+    setUserInput('');
+    setUploadedFiles([]);
+    setLoading(false);
+  };
+
+  const selectChat = (conversationId: string) => {
+    const selectedConv = conversations().find((conv) => conv.id === conversationId);
+    if (selectedConv) {
+      setCurrentConversationId(conversationId);
+      setMessages(selectedConv.chatHistory);
+      setChatId(conversationId); // Update current chatId for API calls
+      setShowChatHistoryPanel(false);
+      clearPreviews();
+      setUserInput('');
       setUploadedFiles([]);
-      const messages: MessageType[] = [
-        {
-          message: props.welcomeMessage ?? defaultWelcomeMessage,
-          type: 'apiMessage',
-        },
-      ];
-      if (leadsConfig()?.status && !getLocalStorageChatflow(props.chatflowid)?.lead) {
-        messages.push({ message: '', type: 'leadCaptureMessage' });
-      }
-      setMessages(messages);
-    } catch (error: any) {
-      const errorData = error.response.data || `${error.response.status}: ${error.response.statusText}`;
-      console.error(`error: ${errorData}`);
+      setLoading(false);
     }
   };
 
-  const regenerateLastResponse = () => {
-    const lastUserMessage = messages()
-      .slice()
-      .reverse()
-      .find((msg) => msg.type === 'userMessage');
-    if (lastUserMessage) {
-      handleSubmit(lastUserMessage.message);
-    }
+  const editChatTitle = (conversationId: string, newTitle: string) => {
+    setConversations((prev) => {
+      const updated = prev.map((conv) => (conv.id === conversationId ? { ...conv, title: newTitle, updatedAt: new Date().toISOString() } : conv));
+      localStorage.setItem(`${props.chatflowid}_CONVERSATIONS`, JSON.stringify(updated));
+      return updated;
+    });
   };
 
-  const stopGeneration = () => {
-    // This will trigger the 'abort' event in fetchResponseFromEventStream
-    // and clean up the streaming state.
-    // For non-streaming, it will just set loading to false.
-    setIsMessageStopping(true);
-    abortMessage();
-    closeResponse();
+  const deleteChat = (conversationId: string) => {
+    setConversations((prev) => {
+      const updated = prev.filter((conv) => conv.id !== conversationId);
+      localStorage.setItem(`${props.chatflowid}_CONVERSATIONS`, JSON.stringify(updated));
+      return updated;
+    });
+
+    if (conversationId === currentConversationId()) {
+      // If the deleted chat was the current one, create a new chat
+      createNewChat();
+    }
   };
 
   onMount(() => {
+    // Load conversations from local storage
+    const storedConversations = localStorage.getItem(`${props.chatflowid}_CONVERSATIONS`);
+    if (storedConversations) {
+      const parsedConversations: Conversation[] = JSON.parse(storedConversations);
+      if (parsedConversations.length > 0) {
+        setConversations(parsedConversations);
+        // Select the most recently updated conversation
+        const mostRecent = parsedConversations.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())[0];
+        selectChat(mostRecent.id);
+      } else {
+        createNewChat(); // No conversations, create a new one
+      }
+    } else {
+      createNewChat(); // No conversations in storage, create a new one
+    }
+
     if (props.clearChatOnReload) {
-      clearChat();
-      window.addEventListener('beforeunload', clearChat);
-      return () => {
-        window.removeEventListener('beforeunload', clearChat);
-      };
+      // This logic needs to be adjusted for multi-chat.
+      // For now, it will clear the *current* chat on reload if enabled.
+      // A more robust solution would involve clearing all chats or specific ones.
+      // For now, I'll keep the existing behavior for the currently loaded chat.
+      window.addEventListener('beforeunload', () => {
+        if (currentConversationId()) {
+          const currentConv = conversations().find(c => c.id === currentConversationId());
+          if (currentConv) {
+            const clearedConv = { ...currentConv, chatHistory: [{ message: props.welcomeMessage ?? defaultWelcomeMessage, type: 'apiMessage' as messageType }] }; // Cast to messageType
+            setConversations(prev => prev.map(c => c.id === currentConversationId() ? clearedConv : c));
+            localStorage.setItem(`${props.chatflowid}_CONVERSATIONS`, JSON.stringify(conversations()));
+          }
+        }
+      });
     }
   });
 
@@ -1301,44 +1365,18 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       setDisclaimerPopupOpen(false);
     }
 
-    const chatMessage = getLocalStorageChatflow(props.chatflowid);
-    if (chatMessage && Object.keys(chatMessage).length) {
-      if (chatMessage.chatId) setChatId(chatMessage.chatId);
-      const savedLead = chatMessage.lead;
+    // This part needs to be updated to load messages from the current conversation
+    const currentConv = conversations().find(c => c.id === currentConversationId());
+    if (currentConv) {
+      setMessages(currentConv.chatHistory);
+      setChatId(currentConv.id);
+      const savedLead = getLocalStorageChatflow(props.chatflowid)?.lead; // Leads are still global per chatflow
       if (savedLead) {
         setIsLeadSaved(!!savedLead);
         setLeadEmail(savedLead.email);
       }
-      const loadedMessages: MessageType[] =
-        chatMessage?.chatHistory?.length > 0
-          ? chatMessage.chatHistory?.map((message: MessageType) => {
-              const chatHistory: MessageType = {
-                messageId: message?.messageId,
-                message: message.message,
-                type: message.type,
-                rating: message.rating,
-                dateTime: message.dateTime,
-              };
-              if (message.sourceDocuments) chatHistory.sourceDocuments = message.sourceDocuments;
-              if (message.fileAnnotations) chatHistory.fileAnnotations = message.fileAnnotations;
-              if (message.fileUploads) chatHistory.fileUploads = message.fileUploads;
-              if (message.agentReasoning) chatHistory.agentReasoning = message.agentReasoning;
-              if (message.action) chatHistory.action = message.action;
-              if (message.artifacts) chatHistory.artifacts = message.artifacts;
-              if (message.followUpPrompts) chatHistory.followUpPrompts = message.followUpPrompts;
-              if (message.execution && message.execution.executionData)
-                chatHistory.agentFlowExecutedData =
-                  typeof message.execution.executionData === 'string' ? JSON.parse(message.execution.executionData) : message.execution.executionData;
-              if (message.agentFlowExecutedData)
-                chatHistory.agentFlowExecutedData =
-                  typeof message.agentFlowExecutedData === 'string' ? JSON.parse(message.agentFlowExecutedData) : message.agentFlowExecutedData;
-              return chatHistory;
-            })
-          : [{ message: props.welcomeMessage ?? defaultWelcomeMessage, type: 'apiMessage' }];
-
-      const filteredMessages = loadedMessages.filter((message) => message.type !== 'leadCaptureMessage');
-      setMessages([...filteredMessages]);
     }
+
 
     // Determine if particular chatflow is available for streaming
     const { data } = await isStreamAvailableQuery({
@@ -1437,7 +1475,11 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       if (chatbotConfig.leads) {
         setLeadsConfig(chatbotConfig.leads);
         if (chatbotConfig.leads?.status && !getLocalStorageChatflow(props.chatflowid)?.lead) {
-          setMessages((prevMessages) => [...prevMessages, { message: '', type: 'leadCaptureMessage' }]);
+          // Only add lead capture message if it's a new chat or not already saved
+          const currentMessages = messages();
+          if (!currentMessages.some(msg => msg.type === 'leadCaptureMessage')) {
+            setMessages((prevMessages) => [...prevMessages, { message: '', type: 'leadCaptureMessage' }]);
+          }
         }
       }
       if (chatbotConfig.followUpPrompts) {
@@ -2337,6 +2379,22 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     }
   };
 
+  const currentChatTitle = createMemo(() => {
+    const currentConv = conversations().find(conv => conv.id === currentConversationId());
+    return currentConv ? currentConv.title : props.title ?? 'Chatbot';
+  });
+
+  const regenerateLastResponse = () => {
+    const lastUserMessage = messages().findLast((msg) => msg.type === 'userMessage');
+    if (lastUserMessage) {
+      handleSubmit(lastUserMessage.message, lastUserMessage.action, lastUserMessage.humanInput);
+    }
+  };
+
+  const stopGeneration = () => {
+    abortMessage();
+  };
+
   return (
     <>
       {startInputType() === 'formInput' && messages().length === 1 ? (
@@ -2386,8 +2444,26 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
             </div>
           )}
 
-          {/* Removed the title bar from here as it's now handled by ChatLayout */}
-          <div class="flex flex-col w-full h-full justify-start z-0">
+          {/* Chat Header */}
+          <Show when={props.showTitle}>
+            <div
+              class="flex flex-row items-center w-full h-[50px] absolute top-0 left-0 z-10 px-4 py-2 shadow-sm"
+              style={{
+                'background-color': props.titleBackgroundColor ?? defaultTitleBackgroundColor,
+                color: props.titleTextColor ?? defaultTitleTextColor,
+              }}
+            >
+              <button onClick={() => setShowChatHistoryPanel(true)} class="p-1 rounded-full hover:bg-white/20 transition-colors">
+                <MenuIcon color={props.titleTextColor ?? defaultTitleTextColor} />
+              </button>
+              <h2 class="flex-grow text-lg font-semibold text-center">{currentChatTitle()}</h2>
+              <Show when={props.titleAvatarSrc}>
+                <Avatar initialAvatarSrc={props.titleAvatarSrc} />
+              </Show>
+            </div>
+          </Show>
+
+          <div class="flex flex-col w-full h-full justify-start z-0" style={{ 'padding-top': props.showTitle ? '50px' : '0' }}>
             <div
               ref={chatContainer}
               class="overflow-y-scroll flex flex-col flex-grow min-w-full w-full px-3 pt-4 relative scrollable-container chatbot-chat-view scroll-smooth"
@@ -2629,6 +2705,21 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
           setFeedbackValue={(value) => setFeedback(value)}
         />
       )}
+
+      <ChatHistoryPanel
+        isOpen={showChatHistoryPanel()}
+        onClose={() => setShowChatHistoryPanel(false)}
+        conversations={conversations()}
+        currentConversationId={currentConversationId()}
+        onSelectChat={selectChat}
+        onNewChat={createNewChat}
+        onEditChatTitle={editChatTitle}
+        onDeleteChat={deleteChat}
+        backgroundColor={props.backgroundColor}
+        textColor={props.textColor}
+        titleBackgroundColor={props.titleBackgroundColor}
+        titleTextColor={props.titleTextColor}
+      />
     </>
   );
 };
